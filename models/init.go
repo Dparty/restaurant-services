@@ -9,6 +9,7 @@ import (
 	"gorm.io/gorm"
 )
 
+var restaurantRepository restaurant.RestaurantRepository
 var itemRepository restaurant.ItemRepository
 var tableRepository restaurant.TableRepository
 var printerRepository restaurant.PrinterRepository
@@ -19,6 +20,7 @@ func Init(inject *gorm.DB) {
 	itemRepository = restaurant.NewItemRepository(inject)
 	tableRepository = restaurant.NewTableRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)
+	restaurantRepository = restaurant.NewRestaurantRepository(inject)
 }
 
 func init() {
