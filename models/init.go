@@ -15,6 +15,7 @@ var printerRepository restaurant.PrinterRepository
 var printerFactory feieyun.PrinterFactory
 
 func Init(inject *gorm.DB) {
+	restaurant.Init(inject)
 	itemRepository = restaurant.NewItemRepository(inject)
 	tableRepository = restaurant.NewTableRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)
