@@ -7,6 +7,7 @@ import (
 	"github.com/Dparty/dao/auth"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
+	"github.com/Dparty/restaurant-services/models"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
 )
@@ -37,6 +38,7 @@ func init() {
 func Init(inject *gorm.DB) {
 	auth.Init(inject)
 	restaurant.Init(inject)
+	models.Init(inject)
 	accountRepository = auth.NewAccountRepository(inject)
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
 	itemRepository = restaurant.NewItemRepository(inject)
