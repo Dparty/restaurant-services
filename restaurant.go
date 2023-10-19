@@ -31,3 +31,11 @@ func (r RestaurantService) GetRestaurant(id uint) (models.Restaurant, error) {
 	}
 	return models.NewRestaurant(*entity), nil
 }
+
+func (r RestaurantService) List(ownerId *uint) []models.Restaurant {
+	var restaurants []models.Restaurant
+	for _, r := range r.restaurantRepository.ListBy(ownerId) {
+		restaurants = append(restaurants, models.NewRestaurant(r))
+	}
+	return restaurants
+}

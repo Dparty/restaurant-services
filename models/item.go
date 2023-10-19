@@ -17,6 +17,10 @@ func (i Item) ID() uint {
 	return i.entity.ID()
 }
 
+func (i Item) Name() string {
+	return i.entity.Name
+}
+
 func (i Item) Entity() restaurant.Item {
 	return i.entity
 }

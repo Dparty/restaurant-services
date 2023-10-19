@@ -3,9 +3,14 @@ module github.com/Dparty/restaurant-services
 go 1.21.1
 
 require (
-	github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94 // indirect
-	github.com/Dparty/dao v0.0.0-20231019033252-c898a1611563 // indirect
-	github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d // indirect
+	github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94
+	github.com/Dparty/dao v0.0.0-20231019033252-c898a1611563
+	github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d
+	github.com/spf13/viper v1.17.0
+	gorm.io/gorm v1.25.5
+)
+
+require (
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/clbanning/mxj v1.8.4 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
@@ -25,7 +30,6 @@ require (
 	github.com/spf13/afero v1.10.0 // indirect
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
-	github.com/spf13/viper v1.17.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.42 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
@@ -36,5 +40,4 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.2 // indirect
-	gorm.io/gorm v1.25.5 // indirect
 )
