@@ -4,6 +4,7 @@ import (
 	"github.com/Dparty/common/fault"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/restaurant-services/models"
+
 	"gorm.io/gorm"
 )
 
