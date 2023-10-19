@@ -39,11 +39,11 @@ func (p Printer) Delete() {
 	printerRepository.Delete(p.ID())
 }
 
-func (p Printer) SetOwner(r abstract.Owner) abstract.Asset {
+func (p Printer) SetOwner(r abstract.Owner) *Printer {
 	return &p
 }
 
-func (p Printer) Owner() abstract.Owner {
+func (p Printer) Owner() *restaurant.Restaurant {
 	return restaurantRepository.GetById(p.entity.Owner().ID())
 }
 
