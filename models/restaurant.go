@@ -1,6 +1,7 @@
 package models
 
 import (
+	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
 )
 
@@ -10,6 +11,17 @@ func NewRestaurant(entity restaurant.Restaurant) Restaurant {
 
 type Restaurant struct {
 	entity restaurant.Restaurant
+}
+
+// Owner implements interfaces.Asset.
+func (r *Restaurant) Owner() abstract.Owner {
+	return r.entity.Owner()
+}
+
+// SetOwner implements interfaces.Asset.
+func (r *Restaurant) SetOwner(owner abstract.Owner) *Restaurant {
+	r.entity.SetOwner(owner)
+	return r
 }
 
 func (r Restaurant) ID() uint {
