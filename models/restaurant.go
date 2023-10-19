@@ -119,6 +119,10 @@ type Table struct {
 	entity restaurant.Table
 }
 
+func (t Table) Owner() abstract.Owner {
+	return t.entity.Owner()
+}
+
 func (t Table) ID() uint {
 	return t.entity.ID()
 }
