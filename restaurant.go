@@ -1,15 +1,12 @@
 package restaurantservice
 
 import (
-	"errors"
-
+	"github.com/Dparty/common/fault"
 	abstract "github.com/Dparty/dao/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/restaurant-services/models"
 	"gorm.io/gorm"
 )
-
-var ErrNotFound = errors.New("restaurant not found")
 
 func NewRestaurantService(inject *gorm.DB) RestaurantService {
 	return RestaurantService{restaurantRepository: restaurantDao.NewRestaurantRepository(inject)}
@@ -27,7 +24,7 @@ func (r RestaurantService) CreateRestaurant(owner abstract.Owner, name, descript
 func (r RestaurantService) GetRestaurant(id uint) (models.Restaurant, error) {
 	entity := r.restaurantRepository.GetById(id)
 	if entity == nil {
-		return models.Restaurant{}, ErrNotFound
+		return models.Restaurant{}, fault.ErrNotFound
 	}
 	return models.NewRestaurant(*entity), nil
 }

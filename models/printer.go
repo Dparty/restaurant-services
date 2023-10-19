@@ -6,6 +6,10 @@ import (
 	"github.com/Dparty/dao/restaurant"
 )
 
+func NewPrinter(entity restaurant.Printer) *Printer {
+	return &Printer{entity: entity}
+}
+
 type Printer struct {
 	entity restaurant.Printer
 }
@@ -28,6 +32,10 @@ func (p Printer) Description() string {
 
 func (p Printer) Type() string {
 	return string(p.entity.Type)
+}
+
+func (p Printer) Delete() {
+	printerRepository.Delete(p.ID())
 }
 
 type OrderNumber struct {
