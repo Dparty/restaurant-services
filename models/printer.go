@@ -26,6 +26,10 @@ func (p Printer) Description() string {
 	return p.entity.Description
 }
 
+func (p Printer) Type() string {
+	return string(p.entity.Type)
+}
+
 type OrderNumber struct {
 	Number int
 	Order  restaurant.Order
