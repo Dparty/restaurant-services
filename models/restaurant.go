@@ -24,6 +24,10 @@ func (r Restaurant) Description() string {
 	return r.entity.Description
 }
 
+func (r Restaurant) Entity() restaurant.Restaurant {
+	return r.entity
+}
+
 func (r Restaurant) Tables() []Table {
 	var tables []Table
 	for _, table := range r.entity.Tables() {
