@@ -94,6 +94,19 @@ func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {
 	return Table{table}, nil
 }
 
+func (r Restaurant) CreatePrinter(t, sn, name, description string) (Printer, error) {
+	// TODO: Check if table label exist or position conflict
+	printer := restaurant.Printer{
+		RestaurantId: r.ID(),
+		Name:         name,
+		Sn:           sn,
+		Type:         restaurant.PrinterType(t),
+		Description:  description,
+	}
+	printerRepository.Save(&printer)
+	return Printer{printer}, nil
+}
+
 type Table struct {
 	entity restaurant.Table
 }

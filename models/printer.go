@@ -10,6 +10,22 @@ type Printer struct {
 	entity restaurant.Printer
 }
 
+func (p Printer) ID() uint {
+	return p.entity.ID()
+}
+
+func (p Printer) Sn() string {
+	return p.entity.Sn
+}
+
+func (p Printer) Name() string {
+	return p.entity.Name
+}
+
+func (p Printer) Description() string {
+	return p.entity.Description
+}
+
 type OrderNumber struct {
 	Number int
 	Order  restaurant.Order
