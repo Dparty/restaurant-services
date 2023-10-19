@@ -19,7 +19,7 @@ func (r *Restaurant) Owner() abstract.Owner {
 }
 
 // SetOwner implements interfaces.Asset.
-func (r *Restaurant) SetOwner(owner abstract.Owner) *Restaurant {
+func (r *Restaurant) SetOwner(owner abstract.Owner) abstract.Asset {
 	r.entity.SetOwner(owner)
 	return r
 }
