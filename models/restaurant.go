@@ -111,6 +111,10 @@ func (r Restaurant) CreatePrinter(t, sn, name, description string) (Printer, err
 	return Printer{printer}, nil
 }
 
+func NewTable(entity restaurant.Table) *Table {
+	return &Table{entity: entity}
+}
+
 type Table struct {
 	entity restaurant.Table
 }
@@ -133,4 +137,8 @@ func (t Table) Y() int64 {
 
 func (t Table) Entity() restaurant.Table {
 	return t.entity
+}
+
+func (t Table) Delete() bool {
+	return tableRepository.Delete(&t.entity).RowsAffected != 0
 }
