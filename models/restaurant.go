@@ -18,6 +18,10 @@ func (r *Restaurant) Owner() abstract.Owner {
 	return r.entity.Owner()
 }
 
+func (r Restaurant) Own(asset abstract.Asset) bool {
+	return r.ID() == asset.Owner().ID()
+}
+
 // SetOwner implements interfaces.Asset.
 func (r *Restaurant) SetOwner(owner abstract.Owner) abstract.Asset {
 	r.entity.SetOwner(owner)
