@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 
+	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
 )
 
@@ -38,7 +39,11 @@ func (p Printer) Delete() {
 	printerRepository.Delete(p.ID())
 }
 
-func (p Printer) Owner() *restaurant.Restaurant {
+func (p Printer) SetOwner(r abstract.Owner) abstract.Asset {
+	return &p
+}
+
+func (p Printer) Owner() abstract.Owner {
 	return restaurantRepository.GetById(p.entity.Owner().ID())
 }
 
