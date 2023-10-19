@@ -86,6 +86,22 @@ type Table struct {
 	entity restaurant.Table
 }
 
+func (t Table) ID() uint {
+	return t.entity.ID()
+}
+
+func (t Table) Label() string {
+	return t.entity.Label
+}
+
+func (t Table) X() int64 {
+	return t.entity.X
+}
+
+func (t Table) Y() int64 {
+	return t.entity.Y
+}
+
 func (t Table) Entity() restaurant.Table {
 	return t.entity
 }
