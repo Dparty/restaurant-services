@@ -35,8 +35,17 @@ func (p Printer) Type() string {
 	return string(p.entity.Type)
 }
 
-func (p Printer) Delete() {
+func (p Printer) Delete() bool {
+	items := itemRepository.List("restaurant_id = ?", p.Owner().ID())
+	for _, item := range items {
+		for _, printer := range item.Printers {
+			if printer == p.ID() {
+				return false
+			}
+		}
+	}
 	printerRepository.Delete(p.ID())
+	return true
 }
 
 func (p Printer) SetOwner(r abstract.Owner) *Printer {

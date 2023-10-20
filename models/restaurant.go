@@ -105,7 +105,6 @@ func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {
 }
 
 func (r Restaurant) CreatePrinter(t, sn, name, description string) (Printer, error) {
-	// TODO: Check if table label exist or position conflict
 	printer := restaurant.Printer{
 		RestaurantId: r.ID(),
 		Name:         name,
