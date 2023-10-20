@@ -3,7 +3,7 @@ module github.com/Dparty/restaurant-services
 go 1.21.1
 
 require (
-	github.com/Dparty/common v0.0.0-20230929033726-ff769bca8c94
+	github.com/Dparty/common v0.0.0-20231020131421-68bb800d0ec8
 	github.com/Dparty/dao v0.0.0-20231019142441-08362e29374c
 	github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d
 	github.com/spf13/viper v1.17.0
@@ -13,6 +13,7 @@ require (
 require (
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
+	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
 	github.com/clbanning/mxj v1.8.4 // indirect

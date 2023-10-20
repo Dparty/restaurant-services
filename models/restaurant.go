@@ -1,8 +1,10 @@
 package models
 
 import (
+	"github.com/Dparty/common/fault"
 	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
+	"github.com/chenyunda218/golambda"
 )
 
 func NewRestaurant(entity restaurant.Restaurant) Restaurant {
@@ -87,7 +89,11 @@ func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant
 }
 
 func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {
-	// TODO: Check if table label exist or position conflict
+	if len(golambda.Filter(r.Tables(), func(_ int, table Table) bool {
+		return table.Label() == label || (x == table.X() && y == table.Y())
+	})) != 0 {
+		return Table{}, fault.ErrCreateTableConflict
+	}
 	table := restaurant.Table{
 		RestaurantId: r.ID(),
 		Label:        label,
