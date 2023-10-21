@@ -27,9 +27,6 @@ func Init(inject *gorm.DB) {
 	tableRepository = restaurant.NewTableRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
-}
-
-func init() {
 	var err error
 	viper.SetConfigName(".env.yaml")
 	viper.SetConfigType("yaml")
@@ -41,6 +38,7 @@ func init() {
 	user := viper.GetString("feieyun.user")
 	ukey := viper.GetString("feieyun.ukey")
 	url := viper.GetString("feieyun.url")
+	fmt.Println(user, ukey, url)
 	printerFactory = feieyun.NewPrinterFactory(user, ukey, url)
 }
 
