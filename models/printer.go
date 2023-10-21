@@ -91,11 +91,12 @@ func PrintBill(printers []restaurant.Printer, restaurantName string, bill restau
 			printersString[printer] += attributesWithoutMonth
 		}
 	}
-	// for k, v := range printersString {
-	// 	foodPrinter := printerRepository.GetById(k)
-	// 	p, _ := printerFactory.Connect(foodPrinter.Sn)
-	// 	p.Print(v, "")
-	// }
+	for k, v := range printersString {
+		fmt.Println(k, v)
+		// foodPrinter := printerRepository.GetById(k)
+		// p, _ := printerFactory.Connect(foodPrinter.Sn)
+		// p.Print(v, "")
+	}
 	content += "--------------------------------<BR>"
 	content += fmt.Sprintf("合計: %.2f元<BR>", float64(bill.Total())/100)
 	// for _, printer := range printers {
