@@ -38,7 +38,7 @@ func Init(inject *gorm.DB) {
 	user := viper.GetString("feieyun.user")
 	ukey := viper.GetString("feieyun.ukey")
 	url := viper.GetString("feieyun.url")
-	fmt.Println(user, ukey, url)
+	fmt.Println("user, ukey, url", user, ukey, url)
 	printerFactory = feieyun.NewPrinterFactory(user, ukey, url)
 }
 
