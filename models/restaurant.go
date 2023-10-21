@@ -75,32 +75,18 @@ func (r *Restaurant) Update(name, description string) *Restaurant {
 }
 
 func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant.Attributes, images, tags []string, printers []uint) (Item, error) {
-	var attributesMap map[string]bool = make(map[string]bool)
-	for _, attribute := range attributes {
-		_, ok := attributesMap[attribute.Label]
-		if ok {
-			return Item{}, fault.ErrItemAttributesConflict
-		}
-		attributesMap[attribute.Label] = true
-		var optionMap map[string]bool = make(map[string]bool)
-		for _, option := range attribute.Options {
-			_, ok := optionMap[option.Label]
-			if ok {
-				return Item{}, fault.ErrItemAttributesConflict
-			}
-			optionMap[option.Label] = true
-		}
-	}
-	item := restaurant.Item{
+	item, err := itemRepository.Save(&restaurant.Item{
 		RestaurantId: r.ID(),
 		Pricing:      pricing,
 		Attributes:   attributes,
 		Images:       images,
 		Tags:         tags,
 		Printers:     printers,
+	})
+	if err != nil {
+		return Item{}, err
 	}
-	itemRepository.Save(&item)
-	return NewItem(item), nil
+	return NewItem(*item), nil
 }
 
 func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {

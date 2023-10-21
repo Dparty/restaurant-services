@@ -4,7 +4,7 @@ go 1.21.1
 
 require (
 	github.com/Dparty/common v0.0.0-20231021010642-807615a29e5c
-	github.com/Dparty/dao v0.0.0-20231021010055-2f539f0b6fd4
+	github.com/Dparty/dao v0.0.0-20231021011517-ec8607e77e6c
 	github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/spf13/viper v1.17.0
@@ -48,7 +48,7 @@ require (
 	github.com/spf13/cast v1.5.1 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/tencentyun/cos-go-sdk-v5 v0.7.42 // indirect
+	github.com/tencentyun/cos-go-sdk-v5 v0.7.45 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
