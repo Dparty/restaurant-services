@@ -12,6 +12,18 @@ type Bill struct {
 	entity restaurant.Bill
 }
 
+func (b Bill) ID() uint {
+	return b.entity.ID
+}
+
+func (b Bill) Orders() restaurant.Orders {
+	return b.entity.Orders
+}
+
+func (b Bill) PickUpCode() int64 {
+	return b.entity.PickUpCode
+}
+
 type Specification struct {
 	ItemId  string            `json:"itemId"`
 	Options []restaurant.Pair `json:"options"`
