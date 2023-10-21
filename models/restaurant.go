@@ -75,14 +75,16 @@ func (r *Restaurant) Update(name, description string) *Restaurant {
 }
 
 func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant.Attributes, images, tags []string, printers []uint) (Item, error) {
-	item, err := itemRepository.Save(&restaurant.Item{
+	i := restaurant.Item{
+		Name:         name,
 		RestaurantId: r.ID(),
 		Pricing:      pricing,
 		Attributes:   attributes,
 		Images:       images,
 		Tags:         tags,
 		Printers:     printers,
-	})
+	}
+	item, err := itemRepository.Save(&i)
 	if err != nil {
 		return Item{}, err
 	}
