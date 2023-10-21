@@ -18,9 +18,11 @@ var printerFactory feieyun.PrinterFactory
 
 var CosClient cloud.CosClient
 var Bucket string
+var db *gorm.DB
 
 func Init(inject *gorm.DB) {
 	restaurant.Init(inject)
+	db = inject
 	itemRepository = restaurant.NewItemRepository(inject)
 	tableRepository = restaurant.NewTableRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)

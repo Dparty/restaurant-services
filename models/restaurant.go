@@ -84,11 +84,12 @@ func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant
 		Tags:         tags,
 		Printers:     printers,
 	}
-	item, err := itemRepository.Save(&i)
-	if err != nil {
-		return Item{}, err
-	}
-	return NewItem(*item), nil
+	db.Save(&i)
+	// item, err := itemRepository.Save(&i)
+	// if err != nil {
+	// 	return Item{}, err
+	// }
+	return NewItem(i), nil
 }
 
 func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {
