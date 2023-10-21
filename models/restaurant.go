@@ -75,7 +75,22 @@ func (r *Restaurant) Update(name, description string) *Restaurant {
 }
 
 func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant.Attributes, images, tags []string, printers []uint) (Item, error) {
-	// TODO: Check if printers doesn't exist.
+	var attributesMap map[string]bool = make(map[string]bool)
+	for _, attribute := range attributes {
+		_, ok := attributesMap[attribute.Label]
+		if ok {
+			return Item{}, fault.ErrItemAttributesConflict
+		}
+		attributesMap[attribute.Label] = true
+		var optionMap map[string]bool = make(map[string]bool)
+		for _, option := range attribute.Options {
+			_, ok := optionMap[option.Label]
+			if ok {
+				return Item{}, fault.ErrItemAttributesConflict
+			}
+			optionMap[option.Label] = true
+		}
+	}
 	item := restaurant.Item{
 		RestaurantId: r.ID(),
 		Pricing:      pricing,
