@@ -4,6 +4,10 @@ import (
 	"github.com/Dparty/dao/restaurant"
 )
 
+func NewBill(entity restaurant.Bill) Bill {
+	return Bill{entity: entity}
+}
+
 type Bill struct {
 	entity restaurant.Bill
 }
