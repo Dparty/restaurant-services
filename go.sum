@@ -60,6 +60,8 @@ github.com/Dparty/dao v0.0.0-20231021064027-4f1faff17889 h1:jI+9amTUjdqe/5sr5kMi
 github.com/Dparty/dao v0.0.0-20231021064027-4f1faff17889/go.mod h1:+cAVzOv1QXZxvKFCzsRYk/brdzYpIku9ycu2CYPQOPA=
 github.com/Dparty/dao v0.0.0-20231021083913-86a02d05760a h1:C7RcTPdeHEH/MgayH7vV3KUWW80aEB3URpZwEb7d6gk=
 github.com/Dparty/dao v0.0.0-20231021083913-86a02d05760a/go.mod h1:+cAVzOv1QXZxvKFCzsRYk/brdzYpIku9ycu2CYPQOPA=
+github.com/Dparty/dao v0.0.0-20231021084520-d882f5265c12 h1:595mSdU4yFmGuVahtsBnEqQOnpEmFGzfb7FIBntt/og=
+github.com/Dparty/dao v0.0.0-20231021084520-d882f5265c12/go.mod h1:+cAVzOv1QXZxvKFCzsRYk/brdzYpIku9ycu2CYPQOPA=
 github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d h1:6OSExguvC883VsAbkrozEdMrRwNQtbTlN4eBFkQB630=
 github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/QcloudApi/qcloud_sign_golang v0.0.0-20141224014652-e4130a326409/go.mod h1:1pk82RBxDY/JZnPQrtqHlUFfCctgdorsd9M06fMynOM=
