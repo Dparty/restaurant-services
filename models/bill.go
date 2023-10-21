@@ -16,6 +16,10 @@ func (b Bill) ID() uint {
 	return b.entity.ID
 }
 
+func (b Bill) Entity() restaurant.Bill {
+	return b.entity
+}
+
 func (b Bill) Orders() restaurant.Orders {
 	return b.entity.Orders
 }
