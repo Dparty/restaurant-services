@@ -38,13 +38,15 @@ func (b BillService) CreateBill(table models.Table, specifications []models.Spec
 		orders = append(orders, order)
 	}
 	pickUpCode := restaurantRepository.GetById(table.Owner().ID()).PickUpCode()
-	bill := models.NewBill(restaurant.Bill{
+	entity := restaurant.Bill{
 		RestaurantId: table.Owner().ID(),
 		TableId:      table.ID(),
 		Status:       "SUBMIT",
 		Orders:       orders,
 		PickUpCode:   pickUpCode,
 		TableLabel:   table.Label(),
-	})
+	}
+	b.billRepository.Save(&entity)
+	bill := models.NewBill(entity)
 	return &bill, nil
 }
