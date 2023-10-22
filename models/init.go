@@ -25,6 +25,9 @@ func Init(inject *gorm.DB) {
 	tableRepository = restaurant.NewTableRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
+}
+
+func init() {
 	var err error
 	viper.SetConfigName(".env.yaml")
 	viper.SetConfigType("yaml")
