@@ -106,6 +106,7 @@ func PrintBill(printers []restaurant.Printer, restaurantName string, bill restau
 		}
 	}
 }
+
 func PrintHelper(order restaurant.Order, orders []OrderNumber) []OrderNumber {
 	for i, o := range orders {
 		if order.Equal(o.Order) {

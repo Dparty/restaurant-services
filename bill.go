@@ -1,6 +1,8 @@
 package restaurantservice
 
 import (
+	"time"
+
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	"github.com/Dparty/dao/restaurant"
@@ -52,4 +54,8 @@ func (b BillService) CreateBill(table models.Table, specifications []models.Spec
 	bill := models.NewBill(entity)
 	models.PrintBill(res.Printers(), res.Name, bill.Entity(), table.Entity(), false)
 	return &bill, nil
+}
+
+func (b BillService) List(restaurantId uint, tableId *uint, status *string, startAt, endAt *time.Time) {
+
 }
