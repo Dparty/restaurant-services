@@ -29,6 +29,7 @@ func (b Bill) PickUpCode() int64 {
 }
 
 func (b Bill) Finish() {
+	b.entity.Status = "FINISH"
 	billRepository.Save(&b.entity)
 }
 
