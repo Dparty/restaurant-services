@@ -12,6 +12,8 @@ import (
 	"gorm.io/gorm"
 )
 
+var db *gorm.DB
+
 var CosClient cloud.CosClient
 var Bucket string
 var printerFactory feieyun.PrinterFactory
@@ -36,6 +38,7 @@ func init() {
 }
 
 func Init(inject *gorm.DB) {
+	db = inject
 	auth.Init(inject)
 	restaurant.Init(inject)
 	models.Init(inject)

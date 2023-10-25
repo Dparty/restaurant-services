@@ -1,6 +1,8 @@
 package models
 
 import (
+	"time"
+
 	"github.com/Dparty/common/fault"
 	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
@@ -123,34 +125,26 @@ func NewTable(entity restaurant.Table) *Table {
 	return &Table{entity: entity}
 }
 
-type Table struct {
-	entity restaurant.Table
-}
-
-func (t Table) Owner() abstract.Owner {
-	return t.entity.Owner()
-}
-
-func (t Table) ID() uint {
-	return t.entity.ID()
-}
-
-func (t Table) Label() string {
-	return t.entity.Label
-}
-
-func (t Table) X() int64 {
-	return t.entity.X
-}
-
-func (t Table) Y() int64 {
-	return t.entity.Y
-}
-
-func (t Table) Entity() restaurant.Table {
-	return t.entity
-}
-
-func (t Table) Delete() bool {
-	return tableRepository.Delete(&t.entity).RowsAffected != 0
+func (r Restaurant) ListBills(restaurantId uint, tableId *uint, status *string, startAt, endAt *time.Time) []Bill {
+	ctx := db.Model(&restaurant.Bill{})
+	ctx = ctx.Where("restaurant_id = ?", restaurantId)
+	if tableId != nil {
+		ctx = ctx.Where("table_id = ?", *tableId)
+	}
+	if status != nil {
+		ctx = ctx.Where("status = ?", *tableId)
+	}
+	if startAt != nil {
+		ctx = ctx.Where("created_at >= ?", *startAt)
+	}
+	if endAt != nil {
+		ctx = ctx.Where("created_at <= ?", *endAt)
+	}
+	var bs []restaurant.Bill
+	ctx.Find(&bs)
+	var bills []Bill
+	for _, b := range bs {
+		bills = append(bills, NewBill(b))
+	}
+	return bills
 }

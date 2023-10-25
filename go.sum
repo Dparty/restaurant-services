@@ -42,6 +42,8 @@ github.com/Dparty/common v0.0.0-20231021010642-807615a29e5c h1:uOqHWrnZF6ZzKnPWo
 github.com/Dparty/common v0.0.0-20231021010642-807615a29e5c/go.mod h1:sY807DCbNdj2+kTNspZcO7/X1zJBmTmxy5TSQA7+lL8=
 github.com/Dparty/dao v0.0.0-20231021084520-d882f5265c12 h1:595mSdU4yFmGuVahtsBnEqQOnpEmFGzfb7FIBntt/og=
 github.com/Dparty/dao v0.0.0-20231021084520-d882f5265c12/go.mod h1:+cAVzOv1QXZxvKFCzsRYk/brdzYpIku9ycu2CYPQOPA=
+github.com/Dparty/dao v0.0.0-20231025055109-f082f771b6f9 h1:xkkWbH44zBNXmh6dQ99mDUXc3VpCrcm/4ihhIQ7d5Kw=
+github.com/Dparty/dao v0.0.0-20231025055109-f082f771b6f9/go.mod h1:+cAVzOv1QXZxvKFCzsRYk/brdzYpIku9ycu2CYPQOPA=
 github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d h1:6OSExguvC883VsAbkrozEdMrRwNQtbTlN4eBFkQB630=
 github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/QcloudApi/qcloud_sign_golang v0.0.0-20141224014652-e4130a326409/go.mod h1:1pk82RBxDY/JZnPQrtqHlUFfCctgdorsd9M06fMynOM=
@@ -101,6 +103,8 @@ github.com/go-playground/universal-translator v0.18.1 h1:Bcnm0ZwsGyWbCzImXv+pAJn
 github.com/go-playground/universal-translator v0.18.1/go.mod h1:xekY+UJKNuX9WP91TpwSH2VMlDf28Uj24BCp08ZFTUY=
 github.com/go-playground/validator/v10 v10.14.1 h1:9c50NUPC30zyuKprjL3vNZ0m5oG+jU0zvx4AqHGnv4k=
 github.com/go-playground/validator/v10 v10.14.1/go.mod h1:9iXMNT7sEkjXb0I+enO7QXmzG6QCsPWY4zveKFVRSyU=
+github.com/go-sql-driver/mysql v1.7.0 h1:ueSltNNllEqE3qcWBTD0iQd3IpL/6U+mJxLkazJ7YPc=
+github.com/go-sql-driver/mysql v1.7.0/go.mod h1:OXbVy3sEdcQ2Doequ6Z5BW6fXNQTmx+9S1MCJN5yJMI=
 github.com/goccy/go-json v0.10.2 h1:CrxCmQqYDkv1z7lO7Wbh2HN93uovUHgrECaO5ZrCXAU=
 github.com/goccy/go-json v0.10.2/go.mod h1:6MelG93GURQebXPDq3khkgXZkazVtN9CRI+MGFi0w8I=
 github.com/golang-jwt/jwt v3.2.2+incompatible h1:IfV12K8xAKAnZqdXVzCZ+TOjboZ2keLg81eXfW3O+oY=
@@ -583,6 +587,9 @@ gopkg.in/yaml.v2 v2.2.2/go.mod h1:hI93XBmqTisBFMUTm0b8Fm+jr3Dg1NNxqwp+5A1VGuI=
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+gorm.io/driver/mysql v1.5.2 h1:QC2HRskSE75wBuOxe0+iCkyJZ+RqpudsQtqkp+IMuXs=
+gorm.io/driver/mysql v1.5.2/go.mod h1:pQLhh1Ut/WUAySdTHwBpBv6+JKcj+ua4ZFx1QQTBzb8=
+gorm.io/gorm v1.25.2-0.20230530020048-26663ab9bf55/go.mod h1:L4uxeKpfBml98NYqVqwAdmV1a2nBtAec/cf3fpucW/k=
 gorm.io/gorm v1.25.5 h1:zR9lOiiYf09VNh5Q1gphfyia1JpiClIWG9hQaxB/mls=
 gorm.io/gorm v1.25.5/go.mod h1:hbnx/Oo0ChWMn1BIhpy1oYozzpM15i4YPuHDmfYtwg8=
 honnef.co/go/tools v0.0.0-20190102054323-c2f93a96b099/go.mod h1:rf3lG4BRIbNafJWhAfAdb/ePZxsR/4RtNHQocxwk9r4=

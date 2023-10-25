@@ -10,21 +10,26 @@ import (
 	"gorm.io/gorm"
 )
 
+var db *gorm.DB
+
 var restaurantRepository restaurant.RestaurantRepository
 var itemRepository restaurant.ItemRepository
 var tableRepository restaurant.TableRepository
 var printerRepository restaurant.PrinterRepository
+var billRepository restaurant.BillRepository
 var printerFactory feieyun.PrinterFactory
 
 var CosClient cloud.CosClient
 var Bucket string
 
 func Init(inject *gorm.DB) {
+	db = inject
 	restaurant.Init(inject)
 	itemRepository = restaurant.NewItemRepository(inject)
 	tableRepository = restaurant.NewTableRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
+	billRepository = restaurant.NewBillRepository(inject)
 }
 
 func init() {
