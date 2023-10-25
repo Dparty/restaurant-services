@@ -49,14 +49,11 @@ func (t Table) Delete() bool {
 	return tableRepository.Delete(&t.entity).RowsAffected != 0
 }
 
-func (t Table) Finish() {
+func (t Table) PrintBills() {
 	restaurant := restaurantRepository.GetById(t.Owner().ID())
 	printers := restaurant.Printers()
 	status := "SUBMIT"
 	bills := t.Bills(&status)
-	for _, bill := range bills {
-		bill.Finish()
-	}
 	if len(bills) == 0 {
 		return
 	}
@@ -73,6 +70,14 @@ func (t Table) Finish() {
 			p, _ := printerFactory.Connect(printer.Sn)
 			p.Print(content, "")
 		}
+	}
+}
+
+func (t Table) Finish() {
+	status := "SUBMIT"
+	bills := t.Bills(&status)
+	for _, bill := range bills {
+		bill.Finish()
 	}
 }
 
