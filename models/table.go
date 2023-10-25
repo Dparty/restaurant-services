@@ -86,7 +86,7 @@ func FinishString(bills []restaurantDao.Bill) string {
 			orderNumbers = PrintHelper(order, orderNumbers)
 		}
 		content += "--------------------------------<BR>"
-		content += fmt.Sprintf("餐號: %d", bill.PickUpCode)
+		content += fmt.Sprintf("餐號: %d<BR>", bill.PickUpCode)
 		for _, order := range orderNumbers {
 			content += fmt.Sprintf("%sX%d<BR>", order.Order.Item.Name, order.Number)
 			for _, option := range order.Order.Specification {
