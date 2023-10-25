@@ -120,7 +120,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		}
 	}
 	content += "--------------------------------<BR>"
-	content += fmt.Sprintf("合計: %.2f元<BR>", math.Floor(float64(bill.Total())/100*1.1))
+	content += fmt.Sprintf("<B>合計: %.2f元</B><BR>", math.Floor(float64(bill.Total())/100*1.1))
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
 			p, _ := printerFactory.Connect(printer.Sn)

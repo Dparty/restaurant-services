@@ -52,7 +52,14 @@ func (t Table) Finish() {
 	printers := restaurant.Printers()
 	fmt.Println(printers)
 	status := "SUBMIT"
-	for _, bill := range t.Bills(&status) {
+	bills := t.Bills(&status)
+	for _, bill := range bills {
 		bill.Finish()
+	}
+	for _, printer := range printers {
+		if printer.Type == "BILL" {
+			p, _ := printerFactory.Connect(printer.Sn)
+			p.Print("test", "")
+		}
 	}
 }
