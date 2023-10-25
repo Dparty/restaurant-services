@@ -4,12 +4,12 @@ import (
 	"fmt"
 
 	abstract "github.com/Dparty/dao/abstract"
-	"github.com/Dparty/dao/restaurant"
+	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/chenyunda218/golambda"
 )
 
 type Table struct {
-	entity restaurant.Table
+	entity restaurantDao.Table
 }
 
 func (t Table) Owner() abstract.Owner {
@@ -32,14 +32,14 @@ func (t Table) Y() int64 {
 	return t.entity.Y
 }
 
-func (t Table) Entity() restaurant.Table {
+func (t Table) Entity() restaurantDao.Table {
 	return t.entity
 }
 
 func (t Table) Bills(status *string) []Bill {
-	var bills []restaurant.Bill
+	var bills []restaurantDao.Bill
 	db.Where("table_id = ?", t.entity.ID()).Where("status = ?", *status).Find(&bills)
-	return golambda.Map(bills, func(_ int, bill restaurant.Bill) Bill {
+	return golambda.Map(bills, func(_ int, bill restaurantDao.Bill) Bill {
 		return NewBill(bill)
 	})
 }
@@ -57,10 +57,25 @@ func (t Table) Finish() {
 	for _, bill := range bills {
 		bill.Finish()
 	}
+	content := ""
+	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
+	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", t.Label())
+	content += FinishString(golambda.Map(bills, func(_ int, b Bill) restaurantDao.Bill {
+		return b.Entity()
+	}))
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
 			p, _ := printerFactory.Connect(printer.Sn)
-			p.Print("test", "")
+			p.Print(content, "")
 		}
 	}
+}
+
+func FinishString(bills []restaurantDao.Bill) string {
+	content := ""
+	for _, bill := range bills {
+		content += "--------------------------------<BR>"
+		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))
+	}
+	return content
 }
