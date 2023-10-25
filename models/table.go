@@ -74,7 +74,14 @@ func (t Table) Finish() {
 func FinishString(bills []restaurantDao.Bill) string {
 	content := ""
 	for _, bill := range bills {
+		orderNumbers := make([]OrderNumber, 0)
+		for _, order := range bill.Orders {
+			orderNumbers = PrintHelper(order, orderNumbers)
+		}
 		content += "--------------------------------<BR>"
+		for _, order := range orderNumbers {
+			content += fmt.Sprintf("%sX%d<BR>", order.Order.Item.Name, order.Number)
+		}
 		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))
 	}
 	return content
