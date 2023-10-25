@@ -1,6 +1,8 @@
 package models
 
 import (
+	"fmt"
+
 	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
 )
@@ -43,4 +45,13 @@ func (t Table) Bills(status *string) []Bill {
 
 func (t Table) Delete() bool {
 	return tableRepository.Delete(&t.entity).RowsAffected != 0
+}
+
+func (t Table) Finish() {
+	status := "SUBMIT"
+	a := t.Entity().Bills(&status)
+	fmt.Println(a)
+	for _, bill := range t.Bills(&status) {
+		bill.Finish()
+	}
 }

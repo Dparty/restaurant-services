@@ -28,6 +28,10 @@ func (b Bill) PickUpCode() int64 {
 	return b.entity.PickUpCode
 }
 
+func (b Bill) Finish() {
+	billRepository.Save(&b.entity)
+}
+
 type Specification struct {
 	ItemId  string            `json:"itemId"`
 	Options []restaurant.Pair `json:"options"`
