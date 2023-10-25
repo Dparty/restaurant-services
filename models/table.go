@@ -5,6 +5,7 @@ import (
 
 	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
+	"github.com/chenyunda218/golambda"
 )
 
 type Table struct {
@@ -36,11 +37,11 @@ func (t Table) Entity() restaurant.Table {
 }
 
 func (t Table) Bills(status *string) []Bill {
-	var bills []Bill
-	for _, b := range t.entity.Bills(status) {
-		bills = append(bills, NewBill(b))
-	}
-	return bills
+	var bills []restaurant.Bill
+	db.Where("table_id = ?", t.entity.ID()).Where("status = ?", *status).Find(&bills)
+	return golambda.Map(bills, func(_ int, bill restaurant.Bill) Bill {
+		return NewBill(bill)
+	})
 }
 
 func (t Table) Delete() bool {
