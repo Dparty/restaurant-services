@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Dparty/common/cloud"
-	"github.com/Dparty/dao/restaurant"
+	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
 	"github.com/spf13/viper"
 	"gorm.io/gorm"
@@ -12,11 +12,11 @@ import (
 
 var db *gorm.DB
 
-var restaurantRepository restaurant.RestaurantRepository
-var itemRepository restaurant.ItemRepository
-var tableRepository restaurant.TableRepository
-var printerRepository restaurant.PrinterRepository
-var billRepository restaurant.BillRepository
+var restaurantRepository restaurantDao.RestaurantRepository
+var itemRepository restaurantDao.ItemRepository
+var tableRepository restaurantDao.TableRepository
+var printerRepository restaurantDao.PrinterRepository
+var billRepository restaurantDao.BillRepository
 var printerFactory feieyun.PrinterFactory
 
 var CosClient cloud.CosClient
@@ -24,12 +24,12 @@ var Bucket string
 
 func Init(inject *gorm.DB) {
 	db = inject
-	restaurant.Init(inject)
-	itemRepository = restaurant.NewItemRepository(inject)
-	tableRepository = restaurant.NewTableRepository(inject)
-	printerRepository = restaurant.NewPrinterRepository(inject)
-	restaurantRepository = restaurant.NewRestaurantRepository(inject)
-	billRepository = restaurant.NewBillRepository(inject)
+	restaurantDao.Init(inject)
+	itemRepository = restaurantDao.NewItemRepository(inject)
+	tableRepository = restaurantDao.NewTableRepository(inject)
+	printerRepository = restaurantDao.NewPrinterRepository(inject)
+	restaurantRepository = restaurantDao.NewRestaurantRepository(inject)
+	billRepository = restaurantDao.NewBillRepository(inject)
 }
 
 func init() {

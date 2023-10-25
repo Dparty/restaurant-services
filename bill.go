@@ -63,7 +63,7 @@ func (b BillService) ListBills(restaurantId uint, tableId *uint, status *string,
 		ctx = ctx.Where("table_id = ?", *tableId)
 	}
 	if status != nil {
-		ctx = ctx.Where("status = ?", *tableId)
+		ctx = ctx.Where("status = ?", *status)
 	}
 	if startAt != nil {
 		ctx = ctx.Where("created_at >= ?", *startAt)
