@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"math"
 
 	abstract "github.com/Dparty/dao/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
@@ -51,18 +52,22 @@ func (t Table) Delete() bool {
 func (t Table) Finish() {
 	restaurant := restaurantRepository.GetById(t.Owner().ID())
 	printers := restaurant.Printers()
-	fmt.Println(printers)
 	status := "SUBMIT"
 	bills := t.Bills(&status)
 	for _, bill := range bills {
 		bill.Finish()
 	}
+	if len(bills) == 0 {
+		return
+	}
 	content := ""
 	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
 	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", t.Label())
-	content += FinishString(golambda.Map(bills, func(_ int, b Bill) restaurantDao.Bill {
-		return b.Entity()
-	}))
+	content += FinishString(
+		golambda.Map(bills,
+			func(_ int, b Bill) restaurantDao.Bill {
+				return b.Entity()
+			}))
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
 			p, _ := printerFactory.Connect(printer.Sn)
@@ -73,7 +78,9 @@ func (t Table) Finish() {
 
 func FinishString(bills []restaurantDao.Bill) string {
 	content := ""
+	total := 0
 	for _, bill := range bills {
+		total += int(bill.Total())
 		orderNumbers := make([]OrderNumber, 0)
 		for _, order := range bill.Orders {
 			orderNumbers = PrintHelper(order, orderNumbers)
@@ -87,5 +94,6 @@ func FinishString(bills []restaurantDao.Bill) string {
 		}
 		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))
 	}
+	content += fmt.Sprintf("總合計: %2.f元<BR>", math.Floor(float64(total)/100))
 	return content
 }
