@@ -48,9 +48,10 @@ func (t Table) Delete() bool {
 }
 
 func (t Table) Finish() {
+	restaurant := restaurantRepository.GetById(t.Owner().ID())
+	printers := restaurant.Printers()
+	fmt.Println(printers)
 	status := "SUBMIT"
-	a := t.Entity().Bills(&status)
-	fmt.Println(a)
 	for _, bill := range t.Bills(&status) {
 		bill.Finish()
 	}
