@@ -49,7 +49,7 @@ func (t Table) Delete() bool {
 	return tableRepository.Delete(&t.entity).RowsAffected != 0
 }
 
-func (t Table) PrintBills() {
+func (t Table) PrintBills(offset int64) {
 	restaurant := restaurantRepository.GetById(t.Owner().ID())
 	printers := restaurant.Printers()
 	status := "SUBMIT"
@@ -61,7 +61,7 @@ func (t Table) PrintBills() {
 	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
 	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", t.Label())
 	content += FinishString(
-		0,
+		offset,
 		golambda.Map(bills,
 			func(_ int, b Bill) restaurantDao.Bill {
 				return b.Entity()
