@@ -61,6 +61,7 @@ func (t Table) PrintBills() {
 	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
 	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", t.Label())
 	content += FinishString(
+		0,
 		golambda.Map(bills,
 			func(_ int, b Bill) restaurantDao.Bill {
 				return b.Entity()
@@ -73,15 +74,15 @@ func (t Table) PrintBills() {
 	}
 }
 
-func (t Table) Finish() {
+func (t Table) Finish(offset int64) {
 	status := "SUBMIT"
 	bills := t.Bills(&status)
 	for _, bill := range bills {
-		bill.Finish()
+		bill.Finish(offset)
 	}
 }
 
-func FinishString(bills []restaurantDao.Bill) string {
+func FinishString(offset int64, bills []restaurantDao.Bill) string {
 	content := ""
 	total := 0
 	for _, bill := range bills {
@@ -101,6 +102,7 @@ func FinishString(bills []restaurantDao.Bill) string {
 		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))
 	}
 	content += "--------------------------------<BR>"
-	content += fmt.Sprintf("<B>總合計: %2.f元 (+10%%)</B><BR>", math.Floor(float64(total)/100*1.1))
+	_offset := float64(offset+100) / 100
+	content += fmt.Sprintf("<B>總合計: %2.f元 (%d%%)</B><BR>", math.Floor((float64(total) / 100 * _offset)), offset)
 	return content
 }

@@ -28,8 +28,9 @@ func (b Bill) PickUpCode() int64 {
 	return b.entity.PickUpCode
 }
 
-func (b Bill) Finish() {
+func (b Bill) Finish(offset int64) {
 	b.entity.Status = "FINISH"
+	b.entity.Offset = offset
 	billRepository.Save(&b.entity)
 }
 
