@@ -52,7 +52,7 @@ func (t Table) Delete() bool {
 func (t Table) PrintBills(offset int64) {
 	restaurant := restaurantRepository.GetById(t.Owner().ID())
 	printers := restaurant.Printers()
-	status := "SUBMIT"
+	status := "SUBMITTED"
 	bills := t.Bills(&status)
 	if len(bills) == 0 {
 		return
@@ -75,7 +75,7 @@ func (t Table) PrintBills(offset int64) {
 }
 
 func (t Table) Finish(offset int64) {
-	status := "SUBMIT"
+	status := "SUBMITTED"
 	bills := t.Bills(&status)
 	for _, bill := range bills {
 		bill.Finish(offset)

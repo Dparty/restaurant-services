@@ -41,14 +41,14 @@ func (b BillService) CreateBill(table models.Table, specifications []models.Spec
 	}
 	pickUpCode := restaurantRepository.GetById(table.Owner().ID()).PickUpCode()
 	res := restaurantRepository.GetById(table.Owner().ID())
-
 	entity := restaurantDao.Bill{
 		RestaurantId: table.Owner().ID(),
 		TableId:      table.ID(),
-		Status:       "SUBMIT",
+		Status:       "SUBMITTED",
 		Orders:       orders,
 		PickUpCode:   pickUpCode,
 		TableLabel:   table.Label(),
+		Offset:       0,
 	}
 	b.billRepository.Save(&entity)
 	bill := models.NewBill(entity)
