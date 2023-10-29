@@ -1,12 +1,14 @@
 package restaurantservice
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/restaurant-services/models"
+	"github.com/chenyunda218/golambda"
 	"gorm.io/gorm"
 )
 
@@ -78,4 +80,59 @@ func (b BillService) ListBills(restaurantId uint, tableId *uint, status *string,
 		bills = append(bills, models.NewBill(b))
 	}
 	return bills
+}
+
+func (b BillService) SetBill(ownerId uint, billIdList []uint, offset int64, status string) error {
+	if len(billIdList) == 0 {
+		return nil
+	}
+	var billsDao []restaurantDao.Bill
+	db.Find(&billsDao, billIdList)
+	var bills []models.Bill
+	for _, bill := range billsDao {
+		bills = append(bills, models.NewBill(bill))
+	}
+	for _, bill := range bills {
+		if bill.OwnerId() != ownerId {
+			return fault.ErrPermissionDenied
+		}
+	}
+	for _, bill := range bills {
+		bill.Set(status, offset)
+	}
+	return nil
+}
+
+func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) error {
+	if len(billIdList) == 0 {
+		return nil
+	}
+	var billsDao []restaurantDao.Bill
+	db.Find(&billsDao, billIdList)
+	var bills []models.Bill
+	for _, bill := range billsDao {
+		bills = append(bills, models.NewBill(bill))
+	}
+	for _, bill := range bills {
+		if bill.OwnerId() != ownerId {
+			return fault.ErrPermissionDenied
+		}
+	}
+	restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
+	printers := restaurant.Printers()
+	content := ""
+	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
+	content += models.FinishString(
+		offset,
+		golambda.Map(bills,
+			func(_ int, b models.Bill) restaurantDao.Bill {
+				return b.Entity()
+			}))
+	for _, printer := range printers {
+		if printer.Type == "BILL" {
+			p, _ := printerFactory.Connect(printer.Sn)
+			p.Print(content, "")
+		}
+	}
+	return nil
 }

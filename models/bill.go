@@ -33,6 +33,16 @@ func (b Bill) Finish(offset int64) {
 	b.entity.Offset = offset
 	billRepository.Save(&b.entity)
 }
+func (b Bill) Set(status string, offset int64) {
+	b.entity.Status = status
+	b.entity.Offset = offset
+	billRepository.Save(&b.entity)
+}
+
+func (b Bill) OwnerId() uint {
+	restaurant := restaurantRepository.GetById(b.entity.RestaurantId)
+	return restaurant.Owner().ID()
+}
 
 type Specification struct {
 	ItemId  string            `json:"itemId"`
