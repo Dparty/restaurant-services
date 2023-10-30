@@ -1,14 +1,12 @@
 package restaurantservice
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/restaurant-services/models"
-	"github.com/chenyunda218/golambda"
 	"gorm.io/gorm"
 )
 
@@ -118,21 +116,21 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 			return fault.ErrPermissionDenied
 		}
 	}
-	restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
-	printers := restaurant.Printers()
-	content := ""
-	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
-	content += models.FinishString(
-		offset,
-		golambda.Map(bills,
-			func(_ int, b models.Bill) restaurantDao.Bill {
-				return b.Entity()
-			}))
-	for _, printer := range printers {
-		if printer.Type == "BILL" {
-			p, _ := printerFactory.Connect(printer.Sn)
-			p.Print(content, "")
-		}
-	}
+	// restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
+	// printers := restaurant.Printers()
+	// content := ""
+	// content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
+	// content += models.FinishString(
+	// 	offset,
+	// 	golambda.Map(bills,
+	// 		func(_ int, b models.Bill) restaurantDao.Bill {
+	// 			return b.Entity()
+	// 		}))
+	// for _, printer := range printers {
+	// 	if printer.Type == "BILL" {
+	// 		p, _ := printerFactory.Connect(printer.Sn)
+	// 		p.Print(content, "")
+	// 	}
+	// }
 	return nil
 }
