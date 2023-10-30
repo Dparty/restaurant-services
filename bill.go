@@ -118,6 +118,9 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 			return fault.ErrPermissionDenied
 		}
 	}
+	if len(bills) == 0 {
+		return nil
+	}
 	restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
 	printers := restaurant.Printers()
 	content := ""
@@ -128,6 +131,7 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 			func(_ int, b models.Bill) restaurantDao.Bill {
 				return b.Entity()
 			}))
+	fmt.Println(content)
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
 			p, _ := printerFactory.Connect(printer.Sn)
