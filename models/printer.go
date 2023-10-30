@@ -106,8 +106,8 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 	for _, order := range orderNumbers {
 		a := fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)
 		a += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
+		a += fmt.Sprintf("<B>%s X%d</B><BR>", order.Order.Item.Name, order.Number)
 		for _, option := range order.Order.Specification {
-			a += fmt.Sprintf("<B>%s X%d</B><BR>", order.Order.Item.Name, order.Number)
 			a += fmt.Sprintf("<B>|--  %s</B><BR>", option.Right)
 		}
 		for _, printer := range order.Order.Item.Printers {
@@ -125,6 +125,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		discount = fmt.Sprintf("(%d%%)", offset)
 	}
 	content += fmt.Sprintf("<B>合計: %.2f元 %s</B><BR>", math.Floor(float64(bill.Total())/100*_offset), discount)
+	content += timestring
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
 			p, _ := printerFactory.Connect(printer.Sn)
