@@ -37,6 +37,21 @@ func init() {
 	CosClient.SecretKey = viper.GetString("cos.SecretKey")
 }
 
+func init() {
+	var err error
+	viper.SetConfigName(".env.yaml")
+	viper.SetConfigType("yaml")
+	viper.AddConfigPath(".")
+	err = viper.ReadInConfig()
+	if err != nil {
+		panic(fmt.Errorf("databases fatal error config file: %w", err))
+	}
+	user := viper.GetString("feieyun.user")
+	ukey := viper.GetString("feieyun.ukey")
+	url := viper.GetString("feieyun.url")
+	printerFactory = feieyun.NewPrinterFactory(user, ukey, url)
+}
+
 func Init(inject *gorm.DB) {
 	db = inject
 	auth.Init(inject)
