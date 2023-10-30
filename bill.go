@@ -1,6 +1,7 @@
 package restaurantservice
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/Dparty/common/fault"
@@ -116,7 +117,8 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 			return fault.ErrPermissionDenied
 		}
 	}
-	// restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
+	restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
+	fmt.Println(restaurant)
 	// printers := restaurant.Printers()
 	// content := ""
 	// content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
