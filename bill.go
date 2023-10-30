@@ -129,11 +129,11 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	// 		func(_ int, b models.Bill) restaurantDao.Bill {
 	// 			return b.Entity()
 	// 		}))
-	// for _, printer := range printers {
-	// 	if printer.Type == "BILL" {
-	// 		p, _ := printerFactory.Connect(printer.Sn)
-	// 		p.Print(content, "")
-	// 	}
-	// }
+	for _, printer := range printers {
+		if printer.Type == "BILL" {
+			p, _ := printerFactory.Connect(printer.Sn)
+			p.Print(content, "")
+		}
+	}
 	return nil
 }
