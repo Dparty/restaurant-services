@@ -3,6 +3,7 @@ package models
 import (
 	"fmt"
 	"math"
+	"time"
 
 	abstract "github.com/Dparty/dao/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
@@ -84,6 +85,7 @@ func ItemString(orders []restaurantDao.Order, withMonth bool) string {
 }
 
 func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
+	timestring := time.Now().Add(time.Hour * 8).Format("2006-01-02 15:04")
 	orderNumbers := make([]OrderNumber, 0)
 	for _, order := range bill.Orders {
 		orderNumbers = PrintHelper(order, orderNumbers)
@@ -93,30 +95,25 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 	content += fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)
 	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
 	content += "--------------------------------<BR>"
-	var printersString map[uint]string = make(map[uint]string)
 	for _, order := range orderNumbers {
 		content += fmt.Sprintf("<B>%s %.2fX%d</B><BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
 		attributes := ""
-		attributesWithoutMonth := ""
 		for _, option := range order.Order.Specification {
 			attributes += fmt.Sprintf("<B>|-- %s +%.2f</B><BR>", option.Right, float64(order.Order.Extra(option))/100)
-			attributesWithoutMonth += fmt.Sprintf("<B>|--  %s</B><BR>", option.Right)
 		}
 		content += attributes
-		for _, printer := range order.Order.Item.Printers {
-			_, ok := printersString[printer]
-			if !ok {
-				printersString[printer] = fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)
-				printersString[printer] += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
-			}
-			printersString[printer] += fmt.Sprintf("<B>%sX%d</B><BR>", order.Order.Item.Name, order.Number)
-			printersString[printer] += attributesWithoutMonth
-		}
 	}
-	for k, v := range printersString {
-		if foodPrinter := printerRepository.GetById(k); foodPrinter != nil {
+	for _, order := range orderNumbers {
+		a := fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)
+		a += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
+		for _, option := range order.Order.Specification {
+			a += fmt.Sprintf("<B>%s X%d</B><BR>", order.Order.Item.Name, order.Number)
+			a += fmt.Sprintf("<B>|--  %s</B><BR>", option.Right)
+		}
+		for _, printer := range order.Order.Item.Printers {
+			foodPrinter := GetPrinter(printer)
 			p, _ := printerFactory.Connect(foodPrinter.Sn)
-			p.Print(v, "")
+			p.Print(a+"<BR>"+timestring, "")
 		}
 	}
 	content += "--------------------------------<BR>"
@@ -134,6 +131,12 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 			p.Print(content, "")
 		}
 	}
+}
+
+func GetPrinter(id uint) restaurantDao.Printer {
+	var printer restaurantDao.Printer
+	db.Where("id = ?", id).Find(&printer)
+	return printer
 }
 
 func PrintHelper(order restaurantDao.Order, orders []OrderNumber) []OrderNumber {
