@@ -119,9 +119,10 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	}
 	restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
 	fmt.Println(restaurant)
-	// printers := restaurant.Printers()
-	// content := ""
-	// content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
+	printers := restaurant.Printers()
+	fmt.Println(printers)
+	content := ""
+	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
 	// content += models.FinishString(
 	// 	offset,
 	// 	golambda.Map(bills,
