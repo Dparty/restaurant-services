@@ -28,7 +28,7 @@ func PairsToMap(s []restaurantDao.Pair) map[string]string {
 	return output
 }
 
-func (b BillService) CreateBill(table models.Table, specifications []models.Specification) (*models.Bill, error) {
+func (b BillService) CreateBill(table models.Table, specifications []models.Specification, offset int64) (*models.Bill, error) {
 	var orders restaurantDao.Orders
 	for _, specification := range specifications {
 		item := itemRepository.GetById(utils.StringToUint(specification.ItemId))
@@ -54,7 +54,7 @@ func (b BillService) CreateBill(table models.Table, specifications []models.Spec
 	}
 	b.billRepository.Save(&entity)
 	bill := models.NewBill(entity)
-	models.PrintBill(res.Printers(), res.Name, bill.Entity(), table.Entity(), false)
+	models.PrintBill(res.Printers(), res.Name, bill.Entity(), table.Entity(), offset, false)
 	return &bill, nil
 }
 

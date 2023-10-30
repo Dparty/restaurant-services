@@ -83,7 +83,7 @@ func ItemString(orders []restaurantDao.Order, withMonth bool) string {
 	return content
 }
 
-func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, reprint bool) {
+func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
 	orderNumbers := make([]OrderNumber, 0)
 	for _, order := range bill.Orders {
 		orderNumbers = PrintHelper(order, orderNumbers)
@@ -120,7 +120,14 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		}
 	}
 	content += "--------------------------------<BR>"
-	content += fmt.Sprintf("<B>合計: %.2f元</B><BR>", math.Floor(float64(bill.Total())/100*1.1))
+	_offset := float64(offset+100) / 100
+	discount := ""
+	if offset > 0 {
+		discount = fmt.Sprintf("(+%d%%)", offset)
+	} else if offset < 0 {
+		discount = fmt.Sprintf("(%d%%)", offset)
+	}
+	content += fmt.Sprintf("<B>合計: %.2f元 %s</B><BR>", math.Floor(float64(bill.Total())/100*_offset), discount)
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
 			p, _ := printerFactory.Connect(printer.Sn)
