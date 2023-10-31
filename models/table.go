@@ -83,6 +83,7 @@ func (t Table) Finish(offset int64) {
 }
 
 func FinishString(offset int64, bills []restaurantDao.Bill) string {
+	_offset := float64(offset+100) / 100
 	content := ""
 	total := 0
 	for _, bill := range bills {
@@ -93,16 +94,16 @@ func FinishString(offset int64, bills []restaurantDao.Bill) string {
 		}
 		content += "--------------------------------<BR>"
 		content += fmt.Sprintf("餐號: %d<BR>", bill.PickUpCode)
+		content += fmt.Sprintf("桌號: %s<BR>", bill.TableLabel)
 		for _, order := range orderNumbers {
-			content += fmt.Sprintf("%sX%d<BR>", order.Order.Item.Name, order.Number)
+			content += fmt.Sprintf("%s %.2fX%d<BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
 			for _, option := range order.Order.Specification {
-				content += fmt.Sprintf("|- %s<BR>", option.Right)
+				content += fmt.Sprintf("|- %s +%.2f<BR>", option.Right, float64(order.Order.Extra(option))/100)
 			}
 		}
 		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))
 	}
 	content += "--------------------------------<BR>"
-	_offset := float64(offset+100) / 100
 	discount := ""
 	if offset > 0 {
 		discount = fmt.Sprintf("(+%d%%)", offset)
