@@ -39,6 +39,12 @@ func (i Item) Name() string {
 	return i.entity.Name
 }
 
+func (i *Item) SetEntity(entity restaurant.Item) *Item {
+	i.entity = entity
+	i.Save()
+	return i
+}
+
 func (i Item) Entity() restaurant.Item {
 	return i.entity
 }
