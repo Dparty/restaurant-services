@@ -82,6 +82,22 @@ func (t Table) Finish(offset int64) {
 	}
 }
 
+func (t Table) Update(label string, x, y int64) bool {
+	tables := tableRepository.List("restaurant_id = ?", t.Owner().ID())
+	if len(golambda.Filter(tables, func(_ int, i restaurantDao.Table) bool {
+		return i.Label == label || (i.X == x && i.Y == y)
+	})) != 0 {
+		return false
+	}
+	entity := t.Entity()
+	entity.Label = label
+	entity.X = x
+	entity.Y = y
+	// t.Save
+	tableRepository.Save(&entity)
+	return true
+}
+
 func FinishString(offset int64, bills []restaurantDao.Bill) string {
 	_offset := float64(offset+100) / 100
 	content := ""
