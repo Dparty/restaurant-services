@@ -97,13 +97,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 	}
 	content += "--------------------------------<BR>"
 	_offset := float64(offset+100) / 100
-	discount := ""
-	if offset > 0 {
-		discount = fmt.Sprintf("(+%d%%)", offset)
-	} else if offset < 0 {
-		discount = fmt.Sprintf("(%d%%)", offset)
-	}
-	content += fmt.Sprintf("<B>合計: %.2f元 %s</B><BR>", math.Floor(float64(bill.Total())/100*_offset), discount)
+	content += fmt.Sprintf("<B>合計: %.2f元</B><BR>", math.Floor(float64(bill.Total())/100*_offset))
 	content += timestring
 	for _, printer := range printers {
 		if printer.Type == "BILL" {
