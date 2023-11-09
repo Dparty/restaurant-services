@@ -90,11 +90,12 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 			a += fmt.Sprintf("<B>|--  %s</B><BR>", option.Right)
 		}
 		for _, printer := range order.Order.Item.Printers {
-			foodPrinter := GetPrinter(printer)
+			foodPrinter := printerRepository.GetById(printer)
 			p, _ := printerFactory.Connect(foodPrinter.Sn)
 			p.Print(a+"<BR>"+timestring, "")
 		}
 	}
+	//------------------------------------------------
 	content += "--------------------------------<BR>"
 	_offset := float64(offset+100) / 100
 	content += fmt.Sprintf("<B>合計: %.2f元</B><BR>", math.Floor(float64(bill.Total())/100*_offset))
@@ -105,12 +106,6 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 			p.Print(content, "")
 		}
 	}
-}
-
-func GetPrinter(id uint) restaurantDao.Printer {
-	var printer restaurantDao.Printer
-	db.Where("id = ?", id).Find(&printer)
-	return printer
 }
 
 func PrintHelper(order restaurantDao.Order, orders []OrderNumber) []OrderNumber {

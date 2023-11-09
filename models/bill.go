@@ -39,6 +39,10 @@ func (b Bill) Set(status string, offset int64) {
 	billRepository.Save(&b.entity)
 }
 
+func (b *Bill) Save() {
+	billRepository.Save(&b.entity)
+}
+
 func (b Bill) OwnerId() uint {
 	restaurant := restaurantRepository.GetById(b.entity.RestaurantId)
 	return restaurant.Owner().ID()

@@ -93,7 +93,6 @@ func (t Table) Update(label string, x, y int64) bool {
 	entity.Label = label
 	entity.X = x
 	entity.Y = y
-	// t.Save
 	tableRepository.Save(&entity)
 	return true
 }

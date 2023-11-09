@@ -76,7 +76,7 @@ func (r *Restaurant) Update(name, description string) *Restaurant {
 	return r
 }
 
-func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant.Attributes, images, tags []string, printers []uint) (Item, error) {
+func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant.Attributes, images, tags []string, printers []uint, status string) (Item, error) {
 	i := restaurant.Item{
 		Name:         name,
 		RestaurantId: r.ID(),
@@ -85,6 +85,7 @@ func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant
 		Images:       images,
 		Tags:         tags,
 		Printers:     printers,
+		Status:       status,
 	}
 	item, err := itemRepository.Save(&i)
 	if err != nil {
