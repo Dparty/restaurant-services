@@ -63,6 +63,13 @@ type OrderNumber struct {
 	Order  restaurantDao.Order
 }
 
+func (p Printer) Model() string {
+	if p.entity.PrinterModel == "" {
+		return "58mm"
+	}
+	return p.entity.PrinterModel
+}
+
 func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
 	timestring := time.Now().Add(time.Hour * 8).Format("2006-01-02 15:04")
 	orderNumbers := make([]OrderNumber, 0)

@@ -48,6 +48,10 @@ func (b Bill) OwnerId() uint {
 	return restaurant.Owner().ID()
 }
 
+func (b Bill) CancelItems() {
+	// b.entity.Orders
+}
+
 type Specification struct {
 	ItemId  string            `json:"itemId"`
 	Options []restaurant.Pair `json:"options"`
