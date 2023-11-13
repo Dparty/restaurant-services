@@ -85,7 +85,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		content += fmt.Sprintf("<B>%s %.2fX%d</B><BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
 		attributes := ""
 		for _, option := range order.Order.Specification {
-			attributes += fmt.Sprintf("<B>|-- %s +%.2f</B><BR>", option.Right, float64(order.Order.Extra(option))/100)
+			attributes += fmt.Sprintf("<B>-- %s +%.2f</B><BR>", option.Right, float64(order.Order.Extra(option))/100)
 		}
 		content += attributes
 	}
@@ -94,7 +94,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		a += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
 		a += fmt.Sprintf("<B>%s X%d</B><BR>", order.Order.Item.Name, order.Number)
 		for _, option := range order.Order.Specification {
-			a += fmt.Sprintf("<B>|--  %s</B><BR>", option.Right)
+			a += fmt.Sprintf("<B>--  %s</B><BR>", option.Right)
 		}
 		for _, printer := range order.Order.Item.Printers {
 			foodPrinter := printerRepository.GetById(printer)

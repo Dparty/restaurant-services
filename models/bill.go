@@ -1,26 +1,27 @@
 package models
 
 import (
-	"github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/common/utils"
+	restaurantDao "github.com/Dparty/dao/restaurant"
 )
 
-func NewBill(entity restaurant.Bill) Bill {
+func NewBill(entity restaurantDao.Bill) Bill {
 	return Bill{entity: entity}
 }
 
 type Bill struct {
-	entity restaurant.Bill
+	entity restaurantDao.Bill
 }
 
 func (b Bill) ID() uint {
 	return b.entity.ID
 }
 
-func (b Bill) Entity() restaurant.Bill {
+func (b Bill) Entity() restaurantDao.Bill {
 	return b.entity
 }
 
-func (b Bill) Orders() restaurant.Orders {
+func (b Bill) Orders() restaurantDao.Orders {
 	return b.entity.Orders
 }
 
@@ -48,11 +49,32 @@ func (b Bill) OwnerId() uint {
 	return restaurant.Owner().ID()
 }
 
-func (b Bill) CancelItems() {
+func (b Bill) CancelItems(specifications []Specification) {
+	var newOrders restaurantDao.Orders
+	copy(newOrders, b.entity.Orders)
+	// for _, specification := range specifications {
+	// 	for _, order := range b.entity.Orders {
+
+	// 	}
+	// }
 	// b.entity.Orders
 }
 
 type Specification struct {
-	ItemId  string            `json:"itemId"`
-	Options []restaurant.Pair `json:"options"`
+	ItemId  string               `json:"itemId"`
+	Options []restaurantDao.Pair `json:"options"`
+}
+
+func (s Specification) Equal(order restaurantDao.Order) bool {
+	if utils.StringToUint(s.ItemId) != order.Item.ID() {
+		return false
+	}
+	for _, o := range s.Options {
+		for _, o2 := range order.Specification {
+			if o.Left == o2.Left && o.Right != o2.Right {
+				return false
+			}
+		}
+	}
+	return true
 }
