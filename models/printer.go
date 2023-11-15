@@ -81,7 +81,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: restaurantName}})
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
-	printContent.AddDiv(24)
+	printContent.AddDiv(32)
 	content := ""
 	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurantName)
 	content += fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)

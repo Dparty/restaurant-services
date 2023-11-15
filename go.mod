@@ -5,7 +5,7 @@ go 1.21.1
 require (
 	github.com/Dparty/common v0.0.0-20231021010642-807615a29e5c
 	github.com/Dparty/dao v0.0.0-20231112014939-066838c7deab
-	github.com/Dparty/feieyun v0.0.0-20231115043828-8097262ff107
+	github.com/Dparty/feieyun v0.0.0-20231115044156-fa7c20d48d13
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/spf13/viper v1.17.0
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.45
