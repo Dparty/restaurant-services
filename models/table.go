@@ -120,7 +120,6 @@ func FinishString(offset int64, bills []restaurantDao.Bill) string {
 	}
 	content += "--------------------------------<BR>"
 	content += fmt.Sprintf("<B>總合計: %2.f元</B><BR>",
-		math.Floor((float64(total) / 100 * _offset)),
-	)
+		math.Floor((float64(total) / 100 * _offset)))
 	return content
 }
