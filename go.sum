@@ -68,6 +68,8 @@ github.com/Dparty/feieyun v0.0.0-20231115043828-8097262ff107 h1:ynJ2rnTR1/1rHWLY
 github.com/Dparty/feieyun v0.0.0-20231115043828-8097262ff107/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/Dparty/feieyun v0.0.0-20231115044156-fa7c20d48d13 h1:MWjFoznDuopi0ZJJLsHIYN6CPuaH+njq7v8UJi1Etr4=
 github.com/Dparty/feieyun v0.0.0-20231115044156-fa7c20d48d13/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
+github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c h1:mOu5uuu7nL4GnxE3pmtUnUzvzG+OOC6vImisPYF1aPA=
+github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/QcloudApi/qcloud_sign_golang v0.0.0-20141224014652-e4130a326409/go.mod h1:1pk82RBxDY/JZnPQrtqHlUFfCctgdorsd9M06fMynOM=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
 github.com/bwmarrin/snowflake v0.3.0/go.mod h1:NdZxfVWX+oR6y2K0o6qAYv6gIOP9rjG0/E9WsDpxqwE=
