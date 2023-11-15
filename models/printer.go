@@ -7,6 +7,7 @@ import (
 
 	abstract "github.com/Dparty/dao/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/feieyun"
 )
 
 func NewPrinter(entity restaurantDao.Printer) *Printer {
@@ -76,12 +77,20 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 	for _, order := range bill.Orders {
 		orderNumbers = PrintHelper(order, orderNumbers)
 	}
+	var printContent feieyun.PrintContent
+	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: restaurantName}})
+	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
+	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
+	printContent.AddDiv(24)
 	content := ""
 	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurantName)
 	content += fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)
 	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
 	content += "--------------------------------<BR>"
 	for _, order := range orderNumbers {
+		printContent.AddLine(feieyun.CenterBold{
+			Content: &feieyun.Bold{Content: &feieyun.Text{
+				Content: fmt.Sprintf("%s %.2fX%d<BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)}}})
 		content += fmt.Sprintf("<B>%s %.2fX%d</B><BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
 		attributes := ""
 		for _, option := range order.Order.Specification {

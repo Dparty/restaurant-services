@@ -60,6 +60,12 @@ github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d h1:6OSExguvC883VsAb
 github.com/Dparty/feieyun v0.0.0-20231009061625-f3e447980d9d/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/Dparty/feieyun v0.0.0-20231030073518-44e79b201c5a h1:jhE3sjzruuHkEmwHAuKlfsIpm+l8A7n4n2WDLXNJDlk=
 github.com/Dparty/feieyun v0.0.0-20231030073518-44e79b201c5a/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
+github.com/Dparty/feieyun v0.0.0-20231115042724-cba448cdcfa7 h1:v1f+oBcksvavr5Ih2uDWLo1XtpG50esw7lA+GnpWBKw=
+github.com/Dparty/feieyun v0.0.0-20231115042724-cba448cdcfa7/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
+github.com/Dparty/feieyun v0.0.0-20231115043259-117b3854f664 h1:hgQ6HA1Pix0ece7mn5T/Qi5ml7y73amYn4/3RISU0Fk=
+github.com/Dparty/feieyun v0.0.0-20231115043259-117b3854f664/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
+github.com/Dparty/feieyun v0.0.0-20231115043828-8097262ff107 h1:ynJ2rnTR1/1rHWLYonF0R/yRDCCRRCOke4pOtHFGbDU=
+github.com/Dparty/feieyun v0.0.0-20231115043828-8097262ff107/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/QcloudApi/qcloud_sign_golang v0.0.0-20141224014652-e4130a326409/go.mod h1:1pk82RBxDY/JZnPQrtqHlUFfCctgdorsd9M06fMynOM=
 github.com/bwmarrin/snowflake v0.3.0 h1:xm67bEhkKh6ij1790JB83OujPR5CzNe8QuQqAgISZN0=
 github.com/bwmarrin/snowflake v0.3.0/go.mod h1:NdZxfVWX+oR6y2K0o6qAYv6gIOP9rjG0/E9WsDpxqwE=
