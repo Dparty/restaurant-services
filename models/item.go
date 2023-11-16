@@ -7,8 +7,8 @@ import (
 	"net/http"
 	"net/url"
 
+	abstract "github.com/Dparty/common/abstract"
 	"github.com/Dparty/common/utils"
-	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/tencentyun/cos-go-sdk-v5"
 )

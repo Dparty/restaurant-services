@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"math"
 
-	abstract "github.com/Dparty/dao/abstract"
+	abstract "github.com/Dparty/common/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/chenyunda218/golambda"
 )

@@ -5,7 +5,7 @@ import (
 	"math"
 	"time"
 
-	abstract "github.com/Dparty/dao/abstract"
+	abstract "github.com/Dparty/common/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
 )

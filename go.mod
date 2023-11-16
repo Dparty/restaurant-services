@@ -3,8 +3,8 @@ module github.com/Dparty/restaurant-services
 go 1.21.1
 
 require (
-	github.com/Dparty/common v0.0.0-20231116073827-4e6f998c5355
-	github.com/Dparty/dao v0.0.0-20231112014939-066838c7deab
+	github.com/Dparty/common v0.0.0-20231116081526-d4557a18ca69
+	github.com/Dparty/dao v0.0.0-20231116081744-7fbf7dca6a5a
 	github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/spf13/viper v1.17.0
@@ -13,7 +13,6 @@ require (
 )
 
 require (
-	github.com/Dparty/auth-services v0.0.0-20231116075426-0f8f6f33bab5 // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
@@ -26,7 +25,6 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.1 // indirect
-	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
@@ -63,5 +61,4 @@ require (
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
-	gorm.io/driver/mysql v1.5.2 // indirect
 )

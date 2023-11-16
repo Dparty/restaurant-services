@@ -1,8 +1,8 @@
 package restaurantservice
 
 import (
+	abstract "github.com/Dparty/common/abstract"
 	"github.com/Dparty/common/fault"
-	abstract "github.com/Dparty/dao/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/restaurant-services/models"
 	"gorm.io/gorm"

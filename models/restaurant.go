@@ -3,8 +3,8 @@ package models
 import (
 	"time"
 
+	abstract "github.com/Dparty/common/abstract"
 	"github.com/Dparty/common/fault"
-	abstract "github.com/Dparty/dao/abstract"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/chenyunda218/golambda"
 )
