@@ -51,11 +51,12 @@ func (p Printer) Delete() bool {
 	return true
 }
 
-func (p *Printer) Update(name, description, sn, t string) {
+func (p *Printer) Update(name, description, sn, t, model string) {
 	p.entity.Name = name
 	p.entity.Description = description
 	p.entity.Sn = sn
 	p.entity.Type = restaurantDao.PrinterType(t)
+	p.entity.PrinterModel = model
 	p.Submit()
 }
 
