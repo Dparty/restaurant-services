@@ -110,13 +110,14 @@ func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {
 	return Table{table}, nil
 }
 
-func (r Restaurant) CreatePrinter(t, sn, name, description string) (Printer, error) {
+func (r Restaurant) CreatePrinter(t, sn, name, description, model string) (Printer, error) {
 	printer := restaurant.Printer{
 		RestaurantId: r.ID(),
 		Name:         name,
 		Sn:           sn,
 		Type:         restaurant.PrinterType(t),
 		Description:  description,
+		PrinterModel: model,
 	}
 	printerRepository.Save(&printer)
 	return Printer{printer}, nil
