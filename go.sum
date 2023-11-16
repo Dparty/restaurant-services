@@ -38,8 +38,12 @@ cloud.google.com/go/storage v1.14.0/go.mod h1:GrKmX003DSIwi9o29oFT7YDnHYwZoctc3f
 dmitri.shuralyov.com/gpu/mtl v0.0.0-20190408044501-666a987793e9/go.mod h1:H6x//7gZCb22OMCxBHrMx7a5I7Hp++hsVxbQ4BYO7hU=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
+github.com/Dparty/auth-services v0.0.0-20231116075426-0f8f6f33bab5 h1:7YBLVZLkqDBZoHlb8j5suG/OBiGMsrLkh8YQaQOCcSY=
+github.com/Dparty/auth-services v0.0.0-20231116075426-0f8f6f33bab5/go.mod h1:wGsvQXbxU5JNnl09j+UebA3idS5Q7XUplv3LI69CXdc=
 github.com/Dparty/common v0.0.0-20231021010642-807615a29e5c h1:uOqHWrnZF6ZzKnPWo9llDpYr/JPM/SVKGYcVadVyhNA=
 github.com/Dparty/common v0.0.0-20231021010642-807615a29e5c/go.mod h1:sY807DCbNdj2+kTNspZcO7/X1zJBmTmxy5TSQA7+lL8=
+github.com/Dparty/common v0.0.0-20231116073827-4e6f998c5355 h1:46jQM7nC9VNsN0LlTOGSOBYXCznbpi3S4YJ5rxBxOk4=
+github.com/Dparty/common v0.0.0-20231116073827-4e6f998c5355/go.mod h1:sY807DCbNdj2+kTNspZcO7/X1zJBmTmxy5TSQA7+lL8=
 github.com/Dparty/dao v0.0.0-20231021084520-d882f5265c12 h1:595mSdU4yFmGuVahtsBnEqQOnpEmFGzfb7FIBntt/og=
 github.com/Dparty/dao v0.0.0-20231021084520-d882f5265c12/go.mod h1:+cAVzOv1QXZxvKFCzsRYk/brdzYpIku9ycu2CYPQOPA=
 github.com/Dparty/dao v0.0.0-20231025055109-f082f771b6f9 h1:xkkWbH44zBNXmh6dQ99mDUXc3VpCrcm/4ihhIQ7d5Kw=
