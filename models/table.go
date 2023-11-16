@@ -85,7 +85,7 @@ func (t Table) Finish(offset int64) {
 func (t Table) Update(label string, x, y int64) bool {
 	tables := tableRepository.List("restaurant_id = ?", t.Owner().ID())
 	if len(golambda.Filter(tables, func(_ int, i restaurantDao.Table) bool {
-		return i.Label == label || (i.X == x && i.Y == y)
+		return i.ID() != t.entity.ID() && (i.Label == label || (i.X == x && i.Y == y))
 	})) != 0 {
 		return false
 	}
