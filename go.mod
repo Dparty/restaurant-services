@@ -7,6 +7,7 @@ require (
 	github.com/Dparty/dao v0.0.0-20231116081744-7fbf7dca6a5a
 	github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
+	github.com/redis/go-redis/v9 v9.3.0
 	github.com/spf13/viper v1.17.0
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.45
 	gorm.io/gorm v1.25.5
@@ -15,9 +16,11 @@ require (
 require (
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.0-rc2 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect
 	github.com/clbanning/mxj v1.8.4 // indirect
+	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
