@@ -40,6 +40,10 @@ func (i Item) Name() string {
 	return i.entity.Name
 }
 
+func (i Item) Categories() []string {
+	return i.entity.Tags
+}
+
 func (i *Item) SetEntity(entity restaurant.Item) *Item {
 	i.entity = entity
 	i.Save()
