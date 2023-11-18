@@ -3,8 +3,8 @@ module github.com/Dparty/restaurant-services
 go 1.21.1
 
 require (
-	github.com/Dparty/common v0.0.0-20231116081526-d4557a18ca69
-	github.com/Dparty/dao v0.0.0-20231116081744-7fbf7dca6a5a
+	github.com/Dparty/common v0.0.0-20231117071835-afd08e73760c
+	github.com/Dparty/dao v0.0.0-20231118010323-e0937a4dc07b
 	github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/redis/go-redis/v9 v9.3.0
@@ -28,6 +28,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.1 // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
@@ -64,4 +65,5 @@ require (
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/mysql v1.5.2 // indirect
 )

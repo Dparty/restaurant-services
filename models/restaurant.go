@@ -76,6 +76,26 @@ func (r *Restaurant) Update(name, description string) *Restaurant {
 	return r
 }
 
+func (r *Restaurant) SetName(name string) *Restaurant {
+	r.entity.Name = name
+	return r
+}
+
+func (r *Restaurant) SetDescription(description string) *Restaurant {
+	r.entity.Description = description
+	return r
+}
+
+func (r *Restaurant) SetCategories(categories []string) *Restaurant {
+	r.entity.Categories = categories
+	return r
+}
+
+func (r *Restaurant) Submit() *Restaurant {
+	restaurantRepository.Save(&r.entity)
+	return r
+}
+
 func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant.Attributes, images, tags []string, printers []uint, status string) (Item, error) {
 	i := restaurant.Item{
 		Name:         name,

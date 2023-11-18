@@ -8,6 +8,7 @@ import (
 	"net/url"
 
 	abstract "github.com/Dparty/common/abstract"
+	"github.com/Dparty/common/snowflake"
 	"github.com/Dparty/common/utils"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/tencentyun/cos-go-sdk-v5"
@@ -62,8 +63,10 @@ func (i Item) Owner() abstract.Owner {
 	return i.entity.Owner()
 }
 
+var imageIdGenerator = snowflake.NewIdGenertor(1)
+
 func (i *Item) UploadImage(file *multipart.FileHeader) string {
-	imageId := utils.GenerteId()
+	imageId := imageIdGenerator.Uint()
 	path := "items/" + utils.UintToString(imageId)
 	u, _ := url.Parse(fmt.Sprintf("https://%s.cos.%s.myqcloud.com", Bucket, CosClient.Region))
 	b := &cos.BaseURL{BucketURL: u}
