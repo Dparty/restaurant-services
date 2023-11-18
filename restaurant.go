@@ -21,6 +21,15 @@ func (r RestaurantService) CreateRestaurant(owner abstract.Owner, name, descript
 	return models.NewRestaurant(entity)
 }
 
+func (r RestaurantService) UpdateRestaurant(id uint, name, description string, categories []string) (models.Restaurant, error) {
+	restaurant, err := r.GetRestaurant(id)
+	if err != nil {
+		return restaurant, err
+	}
+	restaurant.SetName(name).SetDescription(description).SetCategories(categories).Submit()
+	return restaurant, err
+}
+
 func (r RestaurantService) GetRestaurant(id uint) (models.Restaurant, error) {
 	entity := r.restaurantRepository.GetById(id)
 	if entity == nil {
