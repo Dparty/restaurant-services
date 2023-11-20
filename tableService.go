@@ -3,7 +3,6 @@ package restaurantservice
 import (
 	"github.com/Dparty/common/fault"
 	restaurantDao "github.com/Dparty/dao/restaurant"
-	"github.com/Dparty/restaurant-services/models"
 	"gorm.io/gorm"
 )
 
@@ -15,10 +14,10 @@ type TableService struct {
 	tableRepository restaurantDao.TableRepository
 }
 
-func (t TableService) GetById(id uint) (*models.Table, error) {
+func (t TableService) GetById(id uint) (*Table, error) {
 	table := t.tableRepository.Find(id)
 	if table == nil {
 		return nil, fault.ErrNotFound
 	}
-	return models.NewTable(*table), nil
+	return NewTable(*table), nil
 }

@@ -6,7 +6,6 @@ import (
 	"github.com/Dparty/dao/auth"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
-	"github.com/Dparty/restaurant-services/models"
 	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
@@ -21,6 +20,8 @@ var accountRepository auth.AccountRepository
 var restaurantRepository restaurant.RestaurantRepository
 var itemRepository restaurant.ItemRepository
 var printerRepository restaurant.PrinterRepository
+var tableRepository restaurant.TableRepository
+var billRepository restaurant.BillRepository
 
 func Init(inject *gorm.DB) {
 	rdb = redis.NewClient(&redis.Options{
@@ -31,7 +32,8 @@ func Init(inject *gorm.DB) {
 	db = inject
 	auth.Init(inject)
 	restaurant.Init(inject)
-	models.Init(inject)
+	billRepository = restaurant.NewBillRepository(inject)
+	tableRepository = restaurant.NewTableRepository(inject)
 	accountRepository = auth.NewAccountRepository(inject)
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
 	itemRepository = restaurant.NewItemRepository(inject)

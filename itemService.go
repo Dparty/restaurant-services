@@ -3,7 +3,6 @@ package restaurantservice
 import (
 	"github.com/Dparty/common/fault"
 	restaurantDao "github.com/Dparty/dao/restaurant"
-	"github.com/Dparty/restaurant-services/models"
 	"gorm.io/gorm"
 )
 
@@ -15,10 +14,10 @@ type ItemService struct {
 	itemRepository restaurantDao.ItemRepository
 }
 
-func (i ItemService) GetById(id uint) (models.Item, error) {
+func (i ItemService) GetById(id uint) (Item, error) {
 	entity := i.itemRepository.GetById(id)
 	if entity == nil {
-		return models.Item{}, fault.ErrNotFound
+		return Item{}, fault.ErrNotFound
 	}
-	return models.NewItem(*entity), nil
+	return NewItem(*entity), nil
 }
