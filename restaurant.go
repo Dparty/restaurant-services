@@ -26,13 +26,8 @@ func (r RestaurantService) UpdateRestaurant(id uint, name, description string, c
 	if err != nil {
 		return restaurant, err
 	}
-	entity := restaurantRepository.GetById(id)
-	entity.Name = name
-	entity.Description = description
-	entity.Categories = categories
-	db.Save(entity)
-	n := models.NewRestaurant(*entity)
-	return n, err
+	restaurant.SetName(name).SetDescription(description).SetCategories(categories).Submit()
+	return restaurant, err
 }
 
 func (r RestaurantService) GetRestaurant(id uint) (models.Restaurant, error) {

@@ -117,7 +117,7 @@ func (r *Restaurant) Categories() []string {
 }
 
 func (r *Restaurant) Submit() *Restaurant {
-	restaurantRepository.Save(&r.entity)
+	db.Where("id = ?", r.ID()).Updates(&r.entity)
 	return r
 }
 
