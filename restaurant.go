@@ -26,12 +26,13 @@ func (r RestaurantService) UpdateRestaurant(id uint, name, description string, c
 	if err != nil {
 		return restaurant, err
 	}
-	entity := restaurant.Entity()
+	entity := restaurantRepository.GetById(id)
 	entity.Name = name
 	entity.Description = description
 	entity.Categories = categories
-	restaurantRepository.Save(&entity)
-	n := models.NewRestaurant(entity)
+
+	restaurantRepository.Save(entity)
+	n := models.NewRestaurant(*entity)
 	return n, err
 }
 
