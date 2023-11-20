@@ -2,12 +2,12 @@ package restaurantservice
 
 import (
 	"github.com/Dparty/common/cloud"
+	"github.com/Dparty/common/config"
 	"github.com/Dparty/dao/auth"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
 	"github.com/Dparty/restaurant-services/models"
 	"github.com/redis/go-redis/v9"
-	"github.com/spf13/viper"
 	"gorm.io/gorm"
 )
 
@@ -22,11 +22,11 @@ var restaurantRepository restaurant.RestaurantRepository
 var itemRepository restaurant.ItemRepository
 var printerRepository restaurant.PrinterRepository
 
-func Init(v *viper.Viper, inject *gorm.DB) {
+func Init(inject *gorm.DB) {
 	rdb = redis.NewClient(&redis.Options{
-		Addr:     v.GetString("redis.host") + ":6379",
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Addr:     config.GetString("redis.host") + ":6379",
+		Password: "",
+		DB:       0,
 	})
 	db = inject
 	auth.Init(inject)
@@ -36,9 +36,9 @@ func Init(v *viper.Viper, inject *gorm.DB) {
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
 	itemRepository = restaurant.NewItemRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)
-	Bucket = v.GetString("cos.Bucket")
-	CosClient.Region = v.GetString("cos.Region")
-	CosClient.SecretID = v.GetString("cos.SecretID")
-	CosClient.SecretKey = v.GetString("cos.SecretKey")
-	printerFactory = feieyun.NewPrinterFactory(v.GetString("feieyun.user"), v.GetString("feieyun.ukey"), v.GetString("feieyun.url"))
+	Bucket = config.GetString("cos.Bucket")
+	CosClient.Region = config.GetString("cos.Region")
+	CosClient.SecretID = config.GetString("cos.SecretID")
+	CosClient.SecretKey = config.GetString("cos.SecretKey")
+	printerFactory = feieyun.NewPrinterFactory(config.GetString("feieyun.user"), config.GetString("feieyun.ukey"), config.GetString("feieyun.url"))
 }

@@ -50,7 +50,7 @@ func (r Restaurant) Entity() restaurant.Restaurant {
 
 func (r Restaurant) Tables() []Table {
 	var tables []Table
-	for _, table := range r.entity.Tables() {
+	for _, table := range tableRepository.List("restaurant_id = ?", r.ID()) {
 		tables = append(tables, Table{table})
 	}
 	return tables
@@ -58,7 +58,7 @@ func (r Restaurant) Tables() []Table {
 
 func (r Restaurant) Items() []Item {
 	var items []Item
-	for _, item := range r.entity.Items() {
+	for _, item := range itemRepository.List("restaurant_id = ?", r.ID()) {
 		items = append(items, NewItem(item))
 	}
 	return items
@@ -66,14 +66,14 @@ func (r Restaurant) Items() []Item {
 
 func (r Restaurant) Printers() []Printer {
 	var printers []Printer
-	for _, printer := range r.entity.Printers() {
+	for _, printer := range printerRepository.List("restaurant_id = ?", r.ID()) {
 		printers = append(printers, Printer{printer})
 	}
 	return printers
 }
 
-func (r *Restaurant) Update(name, description string) *Restaurant {
-	return r
+func (r Restaurant) PickUpCode() int64 {
+	return r.entity.PickUpCode()
 }
 
 func (r *Restaurant) SetName(name string) *Restaurant {
@@ -84,6 +84,10 @@ func (r *Restaurant) SetName(name string) *Restaurant {
 func (r *Restaurant) SetDescription(description string) *Restaurant {
 	r.entity.Description = description
 	return r
+}
+
+func (r *Restaurant) AddPrinter(printer *Printer) {
+
 }
 
 func (r *Restaurant) SetCategories(categories []string) *Restaurant {
