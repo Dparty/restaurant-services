@@ -30,8 +30,8 @@ func (r RestaurantService) UpdateRestaurant(id uint, name, description string, c
 	entity.Name = name
 	entity.Description = description
 	entity.Categories = categories
+	restaurantRepository.Save(&entity)
 	n := models.NewRestaurant(entity)
-	n.Submit()
 	return n, err
 }
 
