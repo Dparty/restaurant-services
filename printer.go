@@ -76,21 +76,13 @@ func (p Printer) Delete() bool {
 	return true
 }
 
-func (p *Printer) Update(name, description, sn, t, model string) {
-	p.entity.Name = name
-	p.entity.Description = description
-	p.entity.Sn = sn
-	p.entity.Type = restaurantDao.PrinterType(t)
-	p.entity.PrinterModel = model
-	p.Submit()
-}
-
 func (p *Printer) Submit() {
 	printerRepository.Save(&p.entity)
 }
 
-func (p Printer) SetOwner(r abstract.Owner) *Printer {
-	return &p
+func (p *Printer) SetOwner(r abstract.Owner) *Printer {
+	p.entity.SetOwner(r)
+	return p
 }
 
 func (p Printer) Owner() *restaurantDao.Restaurant {

@@ -6,17 +6,13 @@ import (
 	"github.com/Dparty/dao/auth"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
-	"github.com/redis/go-redis/v9"
 	"gorm.io/gorm"
 )
 
 var db *gorm.DB
-var rdb *redis.Client
-
 var CosClient cloud.CosClient
 var Bucket string
 var printerFactory feieyun.PrinterFactory
-var accountRepository auth.AccountRepository
 var restaurantRepository restaurant.RestaurantRepository
 var itemRepository restaurant.ItemRepository
 var printerRepository restaurant.PrinterRepository
@@ -24,17 +20,11 @@ var tableRepository restaurant.TableRepository
 var billRepository restaurant.BillRepository
 
 func Init(inject *gorm.DB) {
-	rdb = redis.NewClient(&redis.Options{
-		Addr:     config.GetString("redis.host") + ":6379",
-		Password: "",
-		DB:       0,
-	})
 	db = inject
 	auth.Init(inject)
 	restaurant.Init(inject)
 	billRepository = restaurant.NewBillRepository(inject)
 	tableRepository = restaurant.NewTableRepository(inject)
-	accountRepository = auth.NewAccountRepository(inject)
 	restaurantRepository = restaurant.NewRestaurantRepository(inject)
 	itemRepository = restaurant.NewItemRepository(inject)
 	printerRepository = restaurant.NewPrinterRepository(inject)

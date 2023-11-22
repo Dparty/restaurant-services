@@ -3,8 +3,8 @@ module github.com/Dparty/restaurant-services
 go 1.21.1
 
 require (
-	github.com/Dparty/common v0.0.0-20231120024514-1fa0c961c2f6
-	github.com/Dparty/dao v0.0.0-20231120093548-ddd46959ed7c
+	github.com/Dparty/common v0.0.0-20231121092828-9e5b601fc81d
+	github.com/Dparty/dao v0.0.0-20231122091431-ace4dca53682
 	github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/redis/go-redis/v9 v9.3.0
@@ -57,10 +57,10 @@ require (
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.9.0 // indirect
 	golang.org/x/arch v0.4.0 // indirect
-	golang.org/x/crypto v0.13.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
-	golang.org/x/net v0.15.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/net v0.17.0 // indirect
+	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
