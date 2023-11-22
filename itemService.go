@@ -3,15 +3,23 @@ package restaurantservice
 import (
 	"github.com/Dparty/common/fault"
 	restaurantDao "github.com/Dparty/dao/restaurant"
-	"gorm.io/gorm"
 )
 
-func NewItemService(inject *gorm.DB) ItemService {
-	return ItemService{itemRepository: restaurantDao.NewItemRepository(inject)}
+var itemService *ItemService
+
+func GetItemService() *ItemService {
+	if itemService == nil {
+		itemService = NewItemService()
+	}
+	return itemService
+}
+
+func NewItemService() *ItemService {
+	return &ItemService{itemRepository: restaurantDao.GetItemRepository()}
 }
 
 type ItemService struct {
-	itemRepository restaurantDao.ItemRepository
+	itemRepository *restaurantDao.ItemRepository
 }
 
 func (i ItemService) GetById(id uint) (Item, error) {

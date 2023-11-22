@@ -3,16 +3,23 @@ package restaurantservice
 import (
 	"github.com/Dparty/common/fault"
 	restaurantDao "github.com/Dparty/dao/restaurant"
-
-	"gorm.io/gorm"
 )
 
-func NewPrinterService(inject *gorm.DB) PrinterService {
-	return PrinterService{printerRepository: restaurantDao.NewPrinterRepository(inject)}
+var printerService *PrinterService
+
+func GetPrinterService() *PrinterService {
+	if printerService == nil {
+		printerService = NewPrinterService()
+	}
+	return printerService
+}
+
+func NewPrinterService() *PrinterService {
+	return &PrinterService{printerRepository: restaurantDao.GetPrinterRepository()}
 }
 
 type PrinterService struct {
-	printerRepository restaurantDao.PrinterRepository
+	printerRepository *restaurantDao.PrinterRepository
 }
 
 func (p PrinterService) GetById(id uint) (*Printer, error) {

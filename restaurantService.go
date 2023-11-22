@@ -4,15 +4,23 @@ import (
 	abstract "github.com/Dparty/common/abstract"
 	"github.com/Dparty/common/fault"
 	restaurantDao "github.com/Dparty/dao/restaurant"
-	"gorm.io/gorm"
 )
 
-func NewRestaurantService(inject *gorm.DB) *RestaurantService {
-	return &RestaurantService{restaurantRepository: restaurantDao.NewRestaurantRepository(inject)}
+var restaurantService *RestaurantService
+
+func GetRestaurantService() *RestaurantService {
+	if restaurantService == nil {
+		restaurantService = NewRestaurantService()
+	}
+	return restaurantService
+}
+
+func NewRestaurantService() *RestaurantService {
+	return &RestaurantService{restaurantRepository: restaurantDao.GetRestaurantRepository()}
 }
 
 type RestaurantService struct {
-	restaurantRepository restaurantDao.RestaurantRepository
+	restaurantRepository *restaurantDao.RestaurantRepository
 }
 
 func (r RestaurantService) CreateRestaurant(owner abstract.Owner, name, description string) Restaurant {

@@ -7,11 +7,11 @@ import (
 )
 
 func NewTableService(inject *gorm.DB) TableService {
-	return TableService{tableRepository: restaurantDao.NewTableRepository(inject)}
+	return TableService{tableRepository: restaurantDao.GetTableRepository()}
 }
 
 type TableService struct {
-	tableRepository restaurantDao.TableRepository
+	tableRepository *restaurantDao.TableRepository
 }
 
 func (t TableService) GetById(id uint) (*Table, error) {

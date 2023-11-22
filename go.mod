@@ -4,7 +4,7 @@ go 1.21.1
 
 require (
 	github.com/Dparty/common v0.0.0-20231121092828-9e5b601fc81d
-	github.com/Dparty/dao v0.0.0-20231122091431-ace4dca53682
+	github.com/Dparty/dao v0.0.0-20231122095315-c7f15c788a4b
 	github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.45
@@ -24,6 +24,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.14.1 // indirect
+	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.10.2 // indirect
 	github.com/golang-jwt/jwt v3.2.2+incompatible // indirect
 	github.com/google/go-querystring v1.1.0 // indirect
@@ -61,4 +62,5 @@ require (
 	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	gorm.io/driver/mysql v1.5.2 // indirect
 )

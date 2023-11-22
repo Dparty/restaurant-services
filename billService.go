@@ -13,11 +13,11 @@ import (
 )
 
 func NewBillService(inject *gorm.DB) BillService {
-	return BillService{restaurantDao.NewBillRepository(inject)}
+	return BillService{restaurantDao.GetBillRepository()}
 }
 
 type BillService struct {
-	billRepository restaurantDao.BillRepository
+	billRepository *restaurantDao.BillRepository
 }
 
 func PairsToMap(s []data.Pair[string, string]) map[string]string {
