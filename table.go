@@ -58,7 +58,7 @@ func (t Table) PrintBills(offset int64) {
 		return
 	}
 	content := ""
-	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
+	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name())
 	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", t.Label())
 	content += FinishString(
 		offset,

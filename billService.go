@@ -124,7 +124,7 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	restaurant, _ := restaurantService.GetRestaurant(bills[0].Entity().RestaurantId)
 	printers := restaurant.Printers()
 	content := ""
-	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
+	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name())
 	content += FinishString(
 		offset,
 		golambda.Map(bills,
