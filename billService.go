@@ -106,7 +106,7 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	if len(billIdList) == 0 {
 		return nil
 	}
-	var billsDao []restaurantDao.Bill
+	billsDao := billRepository.List(billIdList)
 	db.Find(&billsDao, billIdList)
 	var bills []Bill
 	for _, bill := range billsDao {

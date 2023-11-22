@@ -26,16 +26,41 @@ func (p Printer) Sn() string {
 	return p.entity.Sn
 }
 
+func (p *Printer) SetSn(sn string) *Printer {
+	p.entity.Sn = sn
+	return p
+}
+
 func (p Printer) Name() string {
 	return p.entity.Name
+}
+
+func (p *Printer) SetName(name string) *Printer {
+	p.entity.Name = name
+	return p
 }
 
 func (p Printer) Description() string {
 	return p.entity.Description
 }
 
+func (p *Printer) SetDescription(description string) *Printer {
+	p.entity.Description = description
+	return p
+}
+
 func (p Printer) Type() string {
 	return string(p.entity.Type)
+}
+
+func (p *Printer) SetType(t string) *Printer {
+	p.entity.Type = restaurantDao.PrinterType(t)
+	return p
+}
+
+func (p *Printer) SetModel(model string) *Printer {
+	p.entity.PrinterModel = model
+	return p
 }
 
 func (p Printer) Delete() bool {
