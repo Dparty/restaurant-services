@@ -6,8 +6,17 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewTableService(inject *gorm.DB) TableService {
-	return TableService{tableRepository: restaurantDao.GetTableRepository()}
+var tableService *TableService
+
+func GetTableService() *TableService {
+	if tableService == nil {
+		tableService = NewTableService(nil)
+	}
+	return tableService
+}
+
+func NewTableService(inject *gorm.DB) *TableService {
+	return &TableService{tableRepository: restaurantDao.GetTableRepository()}
 }
 
 type TableService struct {
