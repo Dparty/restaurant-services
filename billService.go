@@ -9,11 +9,19 @@ import (
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 	"github.com/chenyunda218/golambda"
-	"gorm.io/gorm"
 )
 
-func NewBillService(inject *gorm.DB) BillService {
-	return BillService{restaurantDao.GetBillRepository()}
+var billService *BillService
+
+func GetBillService() *BillService {
+	if billService == nil {
+		billService = NewBillService()
+	}
+	return billService
+}
+
+func NewBillService() *BillService {
+	return &BillService{restaurantDao.GetBillRepository()}
 }
 
 type BillService struct {
