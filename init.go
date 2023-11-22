@@ -3,6 +3,7 @@ package restaurantservice
 import (
 	"github.com/Dparty/common/cloud"
 	"github.com/Dparty/common/config"
+	"github.com/Dparty/dao"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
 	"gorm.io/gorm"
@@ -18,8 +19,8 @@ var printerRepository *restaurant.PrinterRepository
 var tableRepository *restaurant.TableRepository
 var billRepository *restaurant.BillRepository
 
-func Init(inject *gorm.DB) {
-	db = inject
+func Init() {
+	db = dao.GetDBInstance()
 	billRepository = restaurant.GetBillRepository()
 	tableRepository = restaurant.GetTableRepository()
 	restaurantRepository = restaurant.GetRestaurantRepository()
