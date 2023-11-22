@@ -19,7 +19,7 @@ var printerRepository *restaurant.PrinterRepository
 var tableRepository *restaurant.TableRepository
 var billRepository *restaurant.BillRepository
 
-func Init() {
+func init() {
 	db = dao.GetDBInstance()
 	billRepository = restaurant.GetBillRepository()
 	tableRepository = restaurant.GetTableRepository()
