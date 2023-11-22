@@ -18,6 +18,7 @@ var itemRepository restaurant.ItemRepository
 var printerRepository restaurant.PrinterRepository
 var tableRepository restaurant.TableRepository
 var billRepository restaurant.BillRepository
+var restaurantService *RestaurantService
 
 func Init(inject *gorm.DB) {
 	db = inject
@@ -33,4 +34,5 @@ func Init(inject *gorm.DB) {
 	CosClient.SecretID = config.GetString("cos.SecretID")
 	CosClient.SecretKey = config.GetString("cos.SecretKey")
 	printerFactory = feieyun.NewPrinterFactory(config.GetString("feieyun.user"), config.GetString("feieyun.ukey"), config.GetString("feieyun.url"))
+	restaurantService = NewRestaurantService(inject)
 }

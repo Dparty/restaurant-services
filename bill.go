@@ -1,6 +1,7 @@
 package restaurantservice
 
 import (
+	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 )
@@ -61,8 +62,8 @@ func (b Bill) CancelItems(specifications []Specification) {
 }
 
 type Specification struct {
-	ItemId  string               `json:"itemId"`
-	Options []restaurantDao.Pair `json:"options"`
+	ItemId  string                      `json:"itemId"`
+	Options []data.Pair[string, string] `json:"options"`
 }
 
 func (s Specification) Equal(order restaurantDao.Order) bool {
@@ -71,7 +72,7 @@ func (s Specification) Equal(order restaurantDao.Order) bool {
 	}
 	for _, o := range s.Options {
 		for _, o2 := range order.Specification {
-			if o.Left == o2.Left && o.Right != o2.Right {
+			if o.L == o2.L && o.R != o2.R {
 				return false
 			}
 		}

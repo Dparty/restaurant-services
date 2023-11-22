@@ -50,7 +50,7 @@ func (t Table) Delete() bool {
 }
 
 func (t Table) PrintBills(offset int64) {
-	restaurant := restaurantRepository.GetById(t.Owner().ID())
+	restaurant, _ := restaurantService.GetRestaurant(t.Owner().ID())
 	printers := restaurant.Printers()
 	status := "SUBMITTED"
 	bills := t.Bills(&status)
@@ -67,8 +67,8 @@ func (t Table) PrintBills(offset int64) {
 				return b.Entity()
 			}))
 	for _, printer := range printers {
-		if printer.Type == "BILL" {
-			p, _ := printerFactory.Connect(printer.Sn)
+		if printer.Type() == "BILL" {
+			p, _ := printerFactory.Connect(printer.Sn())
 			p.Print(content, "")
 		}
 	}
@@ -113,7 +113,7 @@ func FinishString(offset int64, bills []restaurantDao.Bill) string {
 		for _, order := range orderNumbers {
 			content += fmt.Sprintf("%s %.2fX%d<BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
 			for _, option := range order.Order.Specification {
-				content += fmt.Sprintf("|- %s +%.2f<BR>", option.Right, float64(order.Order.Extra(option))/100)
+				content += fmt.Sprintf("|- %s +%.2f<BR>", option.R, float64(order.Order.Extra(option))/100)
 			}
 		}
 		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))

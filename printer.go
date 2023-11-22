@@ -101,7 +101,7 @@ func (p Printer) Model() string {
 	return p.entity.PrinterModel
 }
 
-func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
+func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
 	timestring := time.Now().Add(time.Hour * 8).Format("2006-01-02 15:04")
 	orderNumbers := make([]OrderNumber, 0)
 	for _, order := range bill.Orders {
@@ -124,7 +124,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		content += fmt.Sprintf("<B>%s %.2fX%d</B><BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
 		attributes := ""
 		for _, option := range order.Order.Specification {
-			attributes += fmt.Sprintf("<B>-- %s +%.2f</B><BR>", option.Right, float64(order.Order.Extra(option))/100)
+			attributes += fmt.Sprintf("<B>-- %s +%.2f</B><BR>", option.R, float64(order.Order.Extra(option))/100)
 		}
 		content += attributes
 	}
@@ -133,7 +133,7 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 		a += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
 		a += fmt.Sprintf("<B>%s X%d</B><BR>", order.Order.Item.Name, order.Number)
 		for _, option := range order.Order.Specification {
-			a += fmt.Sprintf("<B>--  %s</B><BR>", option.Right)
+			a += fmt.Sprintf("<B>--  %s</B><BR>", option.L)
 		}
 		for _, printer := range order.Order.Item.Printers {
 			foodPrinter := printerRepository.GetById(printer)
@@ -147,8 +147,8 @@ func PrintBill(printers []restaurantDao.Printer, restaurantName string, bill res
 	content += fmt.Sprintf("<B>合計: %.2f元</B><BR>", math.Floor(float64(bill.Total())/100*_offset))
 	content += timestring
 	for _, printer := range printers {
-		if printer.Type == "BILL" {
-			p, _ := printerFactory.Connect(printer.Sn)
+		if printer.Type() == "BILL" {
+			p, _ := printerFactory.Connect(printer.Sn())
 			p.Print(content, "")
 		}
 	}

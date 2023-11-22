@@ -7,8 +7,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func NewRestaurantService(inject *gorm.DB) RestaurantService {
-	return RestaurantService{restaurantRepository: restaurantDao.NewRestaurantRepository(inject)}
+func NewRestaurantService(inject *gorm.DB) *RestaurantService {
+	return &RestaurantService{restaurantRepository: restaurantDao.NewRestaurantRepository(inject)}
 }
 
 type RestaurantService struct {

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
@@ -19,10 +20,10 @@ type BillService struct {
 	billRepository restaurantDao.BillRepository
 }
 
-func PairsToMap(s []restaurantDao.Pair) map[string]string {
+func PairsToMap(s []data.Pair[string, string]) map[string]string {
 	output := make(map[string]string)
 	for _, option := range s {
-		output[option.Left] = option.Right
+		output[option.L] = option.R
 	}
 	return output
 }
@@ -41,7 +42,7 @@ func (b BillService) CreateBill(table Table, specifications []Specification, off
 		orders = append(orders, order)
 	}
 	pickUpCode := restaurantRepository.GetById(table.Owner().ID()).PickUpCode()
-	res := restaurantRepository.GetById(table.Owner().ID())
+	res, _ := restaurantService.GetRestaurant(table.Owner().ID())
 	entity := restaurantDao.Bill{
 		RestaurantId: table.Owner().ID(),
 		TableId:      table.ID(),
@@ -53,7 +54,7 @@ func (b BillService) CreateBill(table Table, specifications []Specification, off
 	}
 	b.billRepository.Save(&entity)
 	bill := NewBill(entity)
-	PrintBill(res.Printers(), res.Name, bill.Entity(), table.Entity(), offset, false)
+	PrintBill(res.Printers(), res.Name(), bill.Entity(), table.Entity(), offset, false)
 	return &bill, nil
 }
 
@@ -120,7 +121,7 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	if len(bills) == 0 {
 		return nil
 	}
-	restaurant := restaurantRepository.GetById(bills[0].Entity().RestaurantId)
+	restaurant, _ := restaurantService.GetRestaurant(bills[0].Entity().RestaurantId)
 	printers := restaurant.Printers()
 	content := ""
 	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name)
@@ -131,8 +132,8 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 				return b.Entity()
 			}))
 	for _, printer := range printers {
-		if printer.Type == "BILL" {
-			p, _ := printerFactory.Connect(printer.Sn)
+		if printer.Type() == "BILL" {
+			p, _ := printerFactory.Connect(printer.Sn())
 			p.Print(content, "")
 		}
 	}
