@@ -6,30 +6,14 @@ import (
 	"github.com/Dparty/dao"
 	"github.com/Dparty/dao/restaurant"
 	"github.com/Dparty/feieyun"
-	"gorm.io/gorm"
 )
 
-var db *gorm.DB
+var db = dao.GetDBInstance()
 var CosClient cloud.CosClient
 var Bucket string
-var printerFactory feieyun.PrinterFactory
-var restaurantRepository *restaurant.RestaurantRepository
-var itemRepository *restaurant.ItemRepository
-var printerRepository *restaurant.PrinterRepository
-var tableRepository *restaurant.TableRepository
-var billRepository *restaurant.BillRepository
-
-func init() {
-	db = dao.GetDBInstance()
-	billRepository = restaurant.GetBillRepository()
-	tableRepository = restaurant.GetTableRepository()
-	restaurantRepository = restaurant.GetRestaurantRepository()
-	itemRepository = restaurant.GetItemRepository()
-	printerRepository = restaurant.GetPrinterRepository()
-	Bucket = config.GetString("cos.Bucket")
-	CosClient.Region = config.GetString("cos.Region")
-	CosClient.SecretID = config.GetString("cos.SecretID")
-	CosClient.SecretKey = config.GetString("cos.SecretKey")
-	printerFactory = feieyun.NewPrinterFactory(config.GetString("feieyun.user"), config.GetString("feieyun.ukey"), config.GetString("feieyun.url"))
-	restaurantService = NewRestaurantService()
-}
+var printerFactory = feieyun.NewPrinterFactory(config.GetString("feieyun.user"), config.GetString("feieyun.ukey"), config.GetString("feieyun.url"))
+var restaurantRepository = restaurant.GetRestaurantRepository()
+var itemRepository = restaurant.GetItemRepository()
+var printerRepository = restaurant.GetPrinterRepository()
+var tableRepository = restaurant.GetTableRepository()
+var billRepository = restaurant.GetBillRepository()
