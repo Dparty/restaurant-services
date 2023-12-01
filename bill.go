@@ -30,18 +30,18 @@ func (b Bill) PickUpCode() int64 {
 	return b.entity.PickUpCode
 }
 
-func (b Bill) Finish(offset int64) {
+func (b *Bill) Finish(offset int64) {
 	b.entity.Status = "FINISH"
 	b.entity.Offset = offset
-	billRepository.Save(&b.entity)
+	b.Submit()
 }
-func (b Bill) Set(status string, offset int64) {
+func (b *Bill) Set(status string, offset int64) {
 	b.entity.Status = status
 	b.entity.Offset = offset
-	billRepository.Save(&b.entity)
+	b.Submit()
 }
 
-func (b *Bill) Save() {
+func (b *Bill) Submit() {
 	billRepository.Save(&b.entity)
 }
 
@@ -50,15 +50,18 @@ func (b Bill) OwnerId() uint {
 	return restaurant.Owner().ID()
 }
 
-func (b Bill) CancelItems(specifications []Specification) {
-	var newOrders restaurantDao.Orders
-	copy(newOrders, b.entity.Orders)
-	// for _, specification := range specifications {
-	// 	for _, order := range b.entity.Orders {
-
-	// 	}
-	// }
-	// b.entity.Orders
+func (b *Bill) CancelItems(specifications []Specification) {
+	if len(specifications) == 0 {
+		return
+	}
+	head := specifications[0]
+	for i, order := range b.entity.Orders {
+		if head.Equal(order) {
+			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
+			break
+		}
+	}
+	b.CancelItems(specifications[1:])
 }
 
 type Specification struct {
