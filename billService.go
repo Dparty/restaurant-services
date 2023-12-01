@@ -66,6 +66,14 @@ func (b BillService) CreateBill(table Table, specifications []Specification, off
 	return &bill, nil
 }
 
+func (b BillService) GetById(id uint) (Bill, error) {
+	entity := b.billRepository.GetById(id)
+	if entity == nil {
+		return Bill{}, fault.ErrNotFound
+	}
+	return NewBill(*entity), nil
+}
+
 func (b BillService) ListBills(restaurantId uint, tableId *uint, status *string, startAt, endAt *time.Time) []Bill {
 	ctx := db.Model(&restaurantDao.Bill{})
 	ctx = ctx.Where("restaurant_id = ?", restaurantId)
