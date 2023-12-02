@@ -32,6 +32,19 @@ func (r *Restaurant) SetOwner(owner abstract.Owner) abstract.Asset {
 	return r
 }
 
+func (r *Restaurant) Delete() {
+	for _, item := range r.Items() {
+		item.Delete()
+	}
+	for _, table := range r.Tables() {
+		table.Delete()
+	}
+	for _, printer := range r.Printers() {
+		printer.Delete()
+	}
+	restaurantRepository.Delete(&r.entity)
+}
+
 func (r Restaurant) ID() uint {
 	return r.entity.ID()
 }
