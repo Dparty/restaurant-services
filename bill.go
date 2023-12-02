@@ -1,6 +1,8 @@
 package restaurantservice
 
 import (
+	"fmt"
+
 	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
@@ -50,18 +52,18 @@ func (b Bill) OwnerId() uint {
 	return restaurant.Owner().ID()
 }
 
-func (b *Bill) CancelItems(specifications []Specification) {
-	if len(specifications) == 0 {
-		return
-	}
-	head := specifications[0]
-	for i, order := range b.entity.Orders {
-		if head.Equal(order) {
-			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
-			break
+func (b *Bill) CancelItem(specification Specification) {
+	for _, order := range b.entity.Orders {
+		if specification.Equal(order) {
+			fmt.Println("cancel item", order)
 		}
 	}
-	b.CancelItems(specifications[1:])
+}
+
+func (b *Bill) CancelItems(specifications []Specification) {
+	for _, specification := range specifications {
+		b.CancelItem(specification)
+	}
 }
 
 type Specification struct {
