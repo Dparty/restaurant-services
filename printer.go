@@ -141,8 +141,7 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 	}
 	//------------------------------------------------
 	printContent.AddDiv(32)
-	_offset := float64(offset+100) / 100
-	printContent.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("合計: %.2f元", math.Floor(float64(bill.Total())/100*_offset))}})
+	printContent.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("合計: %.2f元", math.Floor(float64(bill.Total())/100))}})
 	printContent.AddLine(&feieyun.Text{Content: timestring})
 	for _, printer := range printers {
 		if printer.Type() == "BILL" {
