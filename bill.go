@@ -1,10 +1,13 @@
 package restaurantservice
 
 import (
+	"fmt"
+
 	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/feieyun"
 )
 
 func NewBill(entity restaurantDao.Bill) Bill {
@@ -55,6 +58,18 @@ func (b *Bill) CancelItem(order restaurantDao.Order) {
 	for i, o := range b.entity.Orders {
 		if o.Equal(order) {
 			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
+			var pc feieyun.PrintContent
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", b.PickUpCode())}})
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
+			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: o.Item.Name}})
+			for _, option := range o.Specification {
+				pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("--  %s", option.R)}})
+			}
+			for _, printer := range o.Item.Printers {
+				foodPrinter := printerRepository.GetById(printer)
+				p, _ := printerFactory.Connect(foodPrinter.Sn)
+				p.Print(pc.String(), "")
+			}
 		}
 	}
 }
