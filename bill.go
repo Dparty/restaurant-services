@@ -1,9 +1,8 @@
 package restaurantservice
 
 import (
-	"fmt"
-
 	"github.com/Dparty/common/data"
+	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
 )
@@ -52,31 +51,32 @@ func (b Bill) OwnerId() uint {
 	return restaurant.Owner().ID()
 }
 
-func (b *Bill) CancelItem(specification Specification) {
-	for _, order := range b.entity.Orders {
-		if specification.Equal(order) {
-			fmt.Println("cancel item:", order.Specification)
-			fmt.Println("specification:", specification)
-			// var pc feieyun.PrintContent
-			// pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", b.PickUpCode())}})
-			// pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
-			// pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s", order.Item.Name)}})
-			// for _, option := range order.Specification {
-			// 	pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("--  %s", option.R)}})
-			// }
-			// for _, printer := range order.Item.Printers {
-			// 	foodPrinter := printerRepository.GetById(printer)
-			// 	p, _ := printerFactory.Connect(foodPrinter.Sn)
-			// 	p.Print(pc.String(), "")
-			// }
+func (b *Bill) CancelItem(order restaurantDao.Order) {
+	for i, order := range b.entity.Orders {
+		if order.Equal(order) {
+			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
 		}
 	}
 }
 
-func (b *Bill) CancelItems(specifications []Specification) {
+func (b *Bill) CancelItems(specifications []Specification) error {
+	var orders restaurantDao.Orders
 	for _, specification := range specifications {
-		b.CancelItem(specification)
+		item := itemRepository.GetById(utils.StringToUint(specification.ItemId))
+		if item == nil {
+			return fault.ErrNotFound
+		}
+		order, err := item.CreateOrder(specification.Options)
+		if err != nil {
+			return err
+		}
+		orders = append(orders, order)
 	}
+	for _, order := range orders {
+		b.CancelItem(order)
+	}
+	// b.Submit()
+	return nil
 }
 
 type Specification struct {
