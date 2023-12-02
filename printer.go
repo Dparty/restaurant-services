@@ -125,16 +125,18 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 		}
 	}
 	for _, order := range orderNumbers {
-		a := fmt.Sprintf("<CB>餐號: %d</CB><BR>", bill.PickUpCode)
-		a += fmt.Sprintf("<CB>桌號: %s</CB><BR>", table.Label)
-		a += fmt.Sprintf("<B>%s X%d</B><BR>", order.Order.Item.Name, order.Number)
+		var pc feieyun.PrintContent
+		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
+		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
+		pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s X%d", order.Order.Item.Name, order.Number)}})
 		for _, option := range order.Order.Specification {
-			a += fmt.Sprintf("<B>--  %s</B><BR>", option.L)
+			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("--  %s", option.L)}})
 		}
+		pc.AddLine(&feieyun.Text{Content: timestring})
 		for _, printer := range order.Order.Item.Printers {
 			foodPrinter := printerRepository.GetById(printer)
 			p, _ := printerFactory.Connect(foodPrinter.Sn)
-			p.Print(a+"<BR>"+timestring, "")
+			p.Print(pc.String(), "")
 		}
 	}
 	//------------------------------------------------
