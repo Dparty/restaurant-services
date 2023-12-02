@@ -6,6 +6,7 @@ import (
 	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/feieyun"
 )
 
 func NewBill(entity restaurantDao.Bill) Bill {
@@ -55,7 +56,18 @@ func (b Bill) OwnerId() uint {
 func (b *Bill) CancelItem(specification Specification) {
 	for _, order := range b.entity.Orders {
 		if specification.Equal(order) {
-			fmt.Println("cancel item", order)
+			var pc feieyun.PrintContent
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", b.PickUpCode())}})
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
+			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s", order.Item.Name)}})
+			for _, option := range order.Specification {
+				pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("--  %s", option.R)}})
+			}
+			for _, printer := range order.Item.Printers {
+				foodPrinter := printerRepository.GetById(printer)
+				p, _ := printerFactory.Connect(foodPrinter.Sn)
+				p.Print(pc.String(), "")
+			}
 		}
 	}
 }
