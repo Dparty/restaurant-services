@@ -1,8 +1,6 @@
 package restaurantservice
 
 import (
-	"fmt"
-
 	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
@@ -56,8 +54,7 @@ func (b Bill) OwnerId() uint {
 func (b *Bill) CancelItem(order restaurantDao.Order) {
 	for i, o := range b.entity.Orders {
 		if o.Equal(order) {
-			fmt.Println(i, o.Item.ID(), o.Specification)
-			// b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
+			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
 		}
 	}
 }
