@@ -54,8 +54,8 @@ func (b Bill) OwnerId() uint {
 }
 
 func (b *Bill) CancelItem(order restaurantDao.Order) {
-	for i, order := range b.entity.Orders {
-		if order.Equal(order) {
+	for i, o := range b.entity.Orders {
+		if o.Equal(order) {
 			fmt.Println(i)
 			// b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
 		}
