@@ -143,12 +143,13 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 	printContent.AddDiv(32)
 	printContent.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("合計: %.2f元", math.Floor(float64(bill.Total())/100))}})
 	printContent.AddLine(&feieyun.Text{Content: timestring})
-	for _, printer := range printers {
-		if printer.Type() == "BILL" {
-			p, _ := printerFactory.Connect(printer.Sn())
-			p.Print(printContent.String(), "")
-		}
-	}
+	fmt.Println(printContent.String())
+	// for _, printer := range printers {
+	// 	if printer.Type() == "BILL" {
+	// 		p, _ := printerFactory.Connect(printer.Sn())
+	// 		p.Print(printContent.String(), "")
+	// 	}
+	// }
 }
 
 func PrintHelper(order restaurantDao.Order, orders []OrderNumber) []OrderNumber {
