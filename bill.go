@@ -59,7 +59,7 @@ func (b *Bill) CancelItem(order restaurantDao.Order) {
 		if o.Equal(order) {
 			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
 			var pc feieyun.PrintContent
-			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: "取消訂單"}})
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: "取消品項"}})
 			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", b.PickUpCode())}})
 			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
 			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: o.Item.Name}})
@@ -71,6 +71,7 @@ func (b *Bill) CancelItem(order restaurantDao.Order) {
 				p, _ := printerFactory.Connect(foodPrinter.Sn)
 				p.Print(pc.String(), "")
 			}
+			return
 		}
 	}
 }
@@ -91,7 +92,7 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 	for _, order := range orders {
 		b.CancelItem(order)
 	}
-	// b.Submit()
+	b.Submit()
 	return nil
 }
 
