@@ -75,6 +75,9 @@ func (s Specification) Equal(order restaurantDao.Order) bool {
 	if utils.StringToUint(s.ItemId) != order.Item.ID() {
 		return false
 	}
+	if len(s.Options) != len(order.Specification) {
+		return false
+	}
 	for _, o := range s.Options {
 		for _, o2 := range order.Specification {
 			if o.L == o2.L && o.R != o2.R {
