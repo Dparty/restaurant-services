@@ -33,7 +33,7 @@ func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: restaurantName}})
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
-	printContent.AddDiv(32)
+	printContent.AddDiv(int64(p.Width()))
 	for _, order := range orderNumbers {
 		printContent.AddLine(
 			&feieyun.Bold{
@@ -46,11 +46,17 @@ func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table
 						Content: fmt.Sprintf("-- %s +%.2f", option.R, float64(order.Order.Extra(option))/100)}})
 		}
 	}
-	//------------------------------------------------
-	printContent.AddDiv(32)
+	printContent.AddDiv(int64(p.Width()))
 	printContent.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("合計: %.2f元", math.Floor(float64(bill.Total())/100))}})
 	printContent.AddLine(&feieyun.Text{Content: timestring})
 	p.Print(printContent, reprint)
+}
+
+func (p Printer) Width() int {
+	if p.Model() == "58mm" {
+		return 32
+	}
+	return 48
 }
 
 func (p Printer) ID() uint {
