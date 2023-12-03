@@ -43,7 +43,7 @@ func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table
 			printContent.AddLine(
 				&feieyun.Bold{
 					Content: &feieyun.Text{
-						Content: fmt.Sprintf("-- %s +%.2f", option.R, float64(order.Order.Extra(option))/100)}})
+						Content: fmt.Sprintf("- %s +%.2f", option.R, float64(order.Order.Extra(option))/100)}})
 		}
 	}
 	printContent.AddDiv(int64(p.Width()))
@@ -154,7 +154,7 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
 		pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s X%d", order.Order.Item.Name, order.Number)}})
 		for _, option := range order.Order.Specification {
-			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("--  %s", option.R)}})
+			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("-  %s", option.R)}})
 		}
 		pc.AddLine(&feieyun.Text{Content: timestring})
 		for _, printer := range order.Order.Item.Printers {
@@ -163,7 +163,6 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 			p.Print(pc, reprint)
 		}
 	}
-	//------------------------------------------------
 	for _, printer := range printers {
 		if printer.Type() == "BILL" {
 			printer.PrintBill(restaurantName, bill, table, offset, reprint)
