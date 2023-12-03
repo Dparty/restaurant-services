@@ -18,6 +18,15 @@ type Printer struct {
 	entity restaurantDao.Printer
 }
 
+func (p Printer) Print(printContent feieyun.PrintContent, reprint bool) {
+	printer, _ := printerFactory.Connect(p.Sn())
+	printer.Print(printContent.String(), "")
+}
+
+func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64) {
+
+}
+
 func (p Printer) ID() uint {
 	return p.entity.ID()
 }
@@ -135,8 +144,11 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 		pc.AddLine(&feieyun.Text{Content: timestring})
 		for _, printer := range order.Order.Item.Printers {
 			foodPrinter := printerRepository.GetById(printer)
-			p, _ := printerFactory.Connect(foodPrinter.Sn)
-			p.Print(pc.String(), "")
+			p := NewPrinter(*foodPrinter)
+			p.Print(pc, reprint)
+			// foodPrinter.Print(pc.String(), "")
+			// p, _ := printerFactory.Connect(foodPrinter.Sn)
+			// p.Print(pc.String(), "")
 		}
 	}
 	//------------------------------------------------
@@ -145,8 +157,7 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 	printContent.AddLine(&feieyun.Text{Content: timestring})
 	for _, printer := range printers {
 		if printer.Type() == "BILL" {
-			p, _ := printerFactory.Connect(printer.Sn())
-			p.Print(printContent.String(), "")
+			printer.Print(printContent, reprint)
 		}
 	}
 }
