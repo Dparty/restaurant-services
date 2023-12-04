@@ -104,7 +104,6 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 }
 
 func (b *Bill) Publish() {
-	fmt.Println("publish bill" + fmt.Sprintf("restaurant-%d", b.Owner().ID()))
 	pb.Publish(fmt.Sprintf("restaurant-%d", b.Owner().ID()), b)
 }
 
