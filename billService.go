@@ -65,7 +65,7 @@ func (b BillService) CreateBill(table Table, specifications []Specification, off
 	b.billRepository.Save(&entity)
 	bill := NewBill(entity)
 	PrintBill(res.Printers(), res.Name(), bill.Entity(), table.Entity(), offset, false)
-	pubSub.Publish(fmt.Sprintf("restaurant-%d", bill.Owner().ID()), bill)
+	bill.Publish()
 	return &bill, nil
 }
 

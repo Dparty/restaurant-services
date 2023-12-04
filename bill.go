@@ -99,8 +99,12 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 		b.CancelItem(order)
 	}
 	b.Submit()
-
+	b.Publish()
 	return nil
+}
+
+func (b *Bill) Publish() {
+	pubSub.Publish(fmt.Sprintf("restaurant-%d", b.Owner().ID()), b)
 }
 
 type Specification struct {
