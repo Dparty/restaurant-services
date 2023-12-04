@@ -34,11 +34,11 @@ func (p *PubSub) Ctx() context.Context {
 }
 
 func (p *PubSub) Publish(channel string, message interface{}) {
-	fmt.Println(channel, message)
+	fmt.Println("p:", channel, message)
 	p.rdb.Publish(p.ctx, channel, message)
 }
 
 func (p *PubSub) Subscribe(channel string) *redis.PubSub {
-	fmt.Println(channel)
+	fmt.Println("s:", channel)
 	return p.rdb.Subscribe(p.ctx, channel)
 }
