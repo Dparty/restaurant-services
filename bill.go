@@ -100,7 +100,6 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 		b.CancelItem(order)
 	}
 	b.Submit()
-
 	return nil
 }
 

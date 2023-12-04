@@ -2,6 +2,7 @@ package pubsub
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/redis/go-redis/v9"
 )
@@ -33,9 +34,11 @@ func (p *PubSub) Ctx() context.Context {
 }
 
 func (p *PubSub) Publish(channel string, message interface{}) {
+	fmt.Println(channel, message)
 	p.rdb.Publish(p.ctx, channel, message)
 }
 
 func (p *PubSub) Subscribe(channel string) *redis.PubSub {
+	fmt.Println(channel)
 	return p.rdb.Subscribe(p.ctx, channel)
 }
