@@ -3,6 +3,7 @@ package restaurantservice
 import (
 	"fmt"
 
+	abstract "github.com/Dparty/common/abstract"
 	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
@@ -49,6 +50,11 @@ func (b *Bill) Submit() {
 	billRepository.Save(&b.entity)
 }
 
+func (b Bill) Owner() abstract.Owner {
+	restaurant := restaurantRepository.GetById(b.entity.RestaurantId)
+	return NewRestaurant(*restaurant)
+}
+
 func (b Bill) OwnerId() uint {
 	restaurant := restaurantRepository.GetById(b.entity.RestaurantId)
 	return restaurant.Owner().ID()
@@ -93,6 +99,7 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 		b.CancelItem(order)
 	}
 	b.Submit()
+
 	return nil
 }
 

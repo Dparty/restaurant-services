@@ -9,8 +9,8 @@ import (
 	"github.com/chenyunda218/golambda"
 )
 
-func NewRestaurant(entity restaurant.Restaurant) Restaurant {
-	return Restaurant{entity: entity}
+func NewRestaurant(entity restaurant.Restaurant) *Restaurant {
+	return &Restaurant{entity: entity}
 }
 
 type Restaurant struct {

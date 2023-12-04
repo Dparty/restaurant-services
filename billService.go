@@ -8,10 +8,12 @@ import (
 	"github.com/Dparty/common/fault"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/restaurant-services/pubsub"
 	"github.com/chenyunda218/golambda"
 )
 
 var billService *BillService
+var pubSub = pubsub.GetPubSub()
 
 func GetBillService() *BillService {
 	if billService == nil {
@@ -63,6 +65,7 @@ func (b BillService) CreateBill(table Table, specifications []Specification, off
 	b.billRepository.Save(&entity)
 	bill := NewBill(entity)
 	PrintBill(res.Printers(), res.Name(), bill.Entity(), table.Entity(), offset, false)
+	pubSub.Publish(fmt.Sprintf("restaurant-%d", bill.Owner().ID()), bill)
 	return &bill, nil
 }
 

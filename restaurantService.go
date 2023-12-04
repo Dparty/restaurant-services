@@ -25,7 +25,7 @@ type RestaurantService struct {
 
 func (r RestaurantService) CreateRestaurant(owner abstract.Owner, name, description string) Restaurant {
 	entity := r.restaurantRepository.Create(owner, name, description)
-	return NewRestaurant(entity)
+	return *NewRestaurant(entity)
 }
 
 func (r RestaurantService) UpdateRestaurant(id uint, name, description string, categories []string) (Restaurant, error) {
@@ -42,13 +42,13 @@ func (r RestaurantService) GetRestaurant(id uint) (Restaurant, error) {
 	if entity == nil {
 		return Restaurant{}, fault.ErrNotFound
 	}
-	return NewRestaurant(*entity), nil
+	return *NewRestaurant(*entity), nil
 }
 
 func (r RestaurantService) List(ownerId *uint) []Restaurant {
 	var restaurants []Restaurant
 	for _, r := range r.restaurantRepository.ListBy(ownerId) {
-		restaurants = append(restaurants, NewRestaurant(r))
+		restaurants = append(restaurants, *NewRestaurant(r))
 	}
 	return restaurants
 }
