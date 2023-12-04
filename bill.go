@@ -104,7 +104,7 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 }
 
 func (b *Bill) Publish() {
-	pb.Publish("restaurant-1715616176454766592", b)
+	pb.Publish(fmt.Sprintf("restaurant-%d", b.Owner().ID()), b)
 }
 
 type Specification struct {
