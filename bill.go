@@ -48,6 +48,7 @@ func (b *Bill) Set(status string, offset int64) {
 
 func (b *Bill) Submit() {
 	billRepository.Save(&b.entity)
+	b.Publish()
 }
 
 func (b Bill) Owner() abstract.Owner {
@@ -99,11 +100,12 @@ func (b *Bill) CancelItems(specifications []Specification) error {
 		b.CancelItem(order)
 	}
 	b.Submit()
-	b.Publish()
+
 	return nil
 }
 
 func (b *Bill) Publish() {
+	println(fmt.Sprintf("restaurant-%d", b.Owner().ID()))
 	pb.Publish(fmt.Sprintf("restaurant-%d", b.Owner().ID()), b)
 }
 
