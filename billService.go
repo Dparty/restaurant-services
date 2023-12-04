@@ -13,7 +13,7 @@ import (
 )
 
 var billService *BillService
-var pubSub = pubsub.GetPubSub()
+var pb = pubsub.GetPubSub()
 
 func GetBillService() *BillService {
 	if billService == nil {
