@@ -6,9 +6,9 @@ import (
 
 	"github.com/Dparty/common/data"
 	"github.com/Dparty/common/fault"
+	"github.com/Dparty/common/pubsub"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
-	"github.com/Dparty/restaurant-services/pubsub"
 	"github.com/chenyunda218/golambda"
 )
 
