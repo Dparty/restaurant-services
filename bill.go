@@ -71,7 +71,7 @@ func (b *Bill) CancelItem(order restaurantDao.Order) {
 			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
 			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: o.Item.Name}})
 			for _, option := range o.Specification {
-				pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("--  %s", option.R)}})
+				pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("- %s", option.R)}})
 			}
 			for _, printer := range o.Item.Printers {
 				foodPrinter := printerRepository.GetById(printer)
