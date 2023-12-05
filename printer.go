@@ -144,20 +144,16 @@ func (p Printer) Model() string {
 
 func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
 	timestring := time.Now().Add(time.Hour * 8).Format("2006-01-02 15:04")
-	orderNumbers := make([]OrderNumber, 0)
 	for _, order := range bill.Orders {
-		orderNumbers = PrintHelper(order, orderNumbers)
-	}
-	for _, order := range orderNumbers {
 		var pc feieyun.PrintContent
 		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
 		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
-		pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s X%d", order.Order.Item.Name, order.Number)}})
-		for _, option := range order.Order.Specification {
-			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("-  %s", option.R)}})
+		pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: order.Item.Name}})
+		for _, option := range order.Specification {
+			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("- %s", option.R)}})
 		}
 		pc.AddLine(&feieyun.Text{Content: timestring})
-		for _, printer := range order.Order.Item.Printers {
+		for _, printer := range order.Item.Printers {
 			foodPrinter := printerRepository.GetById(printer)
 			p := NewPrinter(*foodPrinter)
 			p.Print(pc, reprint)
