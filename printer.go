@@ -27,7 +27,7 @@ func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table
 	timestring := time.Now().Add(time.Hour * 8).Format("2006-01-02 15:04")
 	orderNumbers := make([]OrderNumber, 0)
 	for _, order := range bill.Orders {
-		orderNumbers = PrintHelper(order, orderNumbers)
+		orderNumbers = MargeOrderHelper(order, orderNumbers)
 	}
 	var printContent feieyun.PrintContent
 	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: restaurantName}})
@@ -166,7 +166,7 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 	}
 }
 
-func PrintHelper(order restaurantDao.Order, orders []OrderNumber) []OrderNumber {
+func MargeOrderHelper(order restaurantDao.Order, orders []OrderNumber) []OrderNumber {
 	for i, o := range orders {
 		if order.Equal(o.Order) {
 			orders[i].Number++
