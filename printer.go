@@ -154,7 +154,7 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
 		pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s X%d", order.Order.Item.Name, order.Number)}})
 		for _, option := range order.Order.Specification {
-			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("-  %s", option.R)}})
+			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("-  %sX%d", option.R, order.Number)}})
 		}
 		pc.AddLine(&feieyun.Text{Content: timestring})
 		for _, printer := range order.Order.Item.Printers {
