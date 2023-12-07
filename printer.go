@@ -159,7 +159,7 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 		pc.AddLine(&feieyun.Text{Content: timestring})
 		for _, printer := range order.Order.Item.Printers {
 			p, err := printerService.GetById(printer)
-			if err != nil {
+			if err == nil {
 				p.Print(pc, reprint)
 			}
 		}
