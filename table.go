@@ -6,6 +6,7 @@ import (
 
 	abstract "github.com/Dparty/common/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/feieyun"
 	"github.com/chenyunda218/golambda"
 )
 
@@ -57,19 +58,21 @@ func (t Table) PrintBills(offset int64) {
 	if len(bills) == 0 {
 		return
 	}
-	content := ""
-	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name())
-	content += fmt.Sprintf("<CB>桌號: %s</CB><BR>", t.Label())
-	content += FinishString(
-		offset,
-		golambda.Map(bills,
-			func(_ int, b Bill) restaurantDao.Bill {
-				return b.Entity()
-			}))
+
 	for _, printer := range printers {
 		if printer.Type() == "BILL" {
+			var pc feieyun.PrintContent
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: restaurant.Name()}})
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", t.Label())}})
+			FinishString(
+				&pc,
+				offset,
+				golambda.Map(bills,
+					func(_ int, b Bill) restaurantDao.Bill {
+						return b.Entity()
+					}), printer.Width())
 			p, _ := printerFactory.Connect(printer.Sn())
-			p.Print(content, "")
+			p.Print(pc.String(), "")
 		}
 	}
 }
@@ -97,9 +100,9 @@ func (t Table) Update(label string, x, y int64) bool {
 	return true
 }
 
-func FinishString(offset int64, bills []restaurantDao.Bill) string {
+func FinishString(pc *feieyun.PrintContent, offset int64, bills []restaurantDao.Bill, width int) string {
 	_offset := float64(offset+100) / 100
-	content := ""
+
 	total := 0
 	for _, bill := range bills {
 		total += int(bill.Total())
@@ -107,20 +110,30 @@ func FinishString(offset int64, bills []restaurantDao.Bill) string {
 		for _, order := range bill.Orders {
 			orderNumbers = MargeOrderHelper(order, orderNumbers)
 		}
-		content += "--------------------------------<BR>"
-		content += fmt.Sprintf("餐號: %d<BR>", bill.PickUpCode)
-		content += fmt.Sprintf("桌號: %s<BR>", bill.TableLabel)
+		pc.AddDiv(int64(width))
+		pc.AddLine(&feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)})
+		pc.AddLine(&feieyun.Text{Content: fmt.Sprintf("桌號: %s", bill.TableLabel)})
 		for _, order := range orderNumbers {
-			content += fmt.Sprintf("%s %.2fX%d<BR>", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)
+			pc.AddLine(
+				&feieyun.Text{
+					Content: fmt.Sprintf("%s %.2fX%d", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)})
 			for _, option := range order.Order.Specification {
-				content += fmt.Sprintf("- %s +%.2f<BR>", option.R, float64(order.Order.Extra(option))/100)
+				pc.AddLine(
+					&feieyun.Text{
+						Content: fmt.Sprintf("- %s +%.2f", option.R, float64(order.Order.Extra(option))/100)})
 			}
 		}
-		content += fmt.Sprintf("合計: %2.f元<BR>", float64(bill.Total()/100))
-		content += fmt.Sprintf("時間: %s<BR>", bill.CreatedAt.Local().Format("2006-01-02 15:04"))
+		pc.AddLine(
+			&feieyun.Text{
+				Content: fmt.Sprintf("合計: %2.f元", float64(bill.Total()/100))})
+		pc.AddLine(
+			&feieyun.Text{
+				Content: fmt.Sprintf("時間: %s", bill.CreatedAt.Local().Format("2006-01-02 15:04"))})
 	}
-	content += "--------------------------------<BR>"
-	content += fmt.Sprintf("<B>總合計: %2.f元</B><BR>",
-		math.Floor((float64(total) / 100 * _offset)))
-	return content
+	pc.AddDiv(int64(width))
+	pc.AddLine(
+		&feieyun.Bold{Content: &feieyun.Text{
+			Content: fmt.Sprintf("總合計: %2.f元",
+				math.Floor((float64(total) / 100 * _offset)))}})
+	return pc.String()
 }

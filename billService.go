@@ -1,7 +1,6 @@
 package restaurantservice
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/Dparty/common/data"
@@ -9,6 +8,7 @@ import (
 	"github.com/Dparty/common/pubsub"
 	"github.com/Dparty/common/utils"
 	restaurantDao "github.com/Dparty/dao/restaurant"
+	"github.com/Dparty/feieyun"
 	"github.com/chenyunda218/golambda"
 )
 
@@ -142,18 +142,19 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	}
 	restaurant, _ := restaurantService.GetRestaurant(bills[0].Entity().RestaurantId)
 	printers := restaurant.Printers()
-	content := ""
-	content += fmt.Sprintf("<CB>%s</CB><BR>", restaurant.Name())
-	content += FinishString(
-		offset,
-		golambda.Map(bills,
-			func(_ int, b Bill) restaurantDao.Bill {
-				return b.Entity()
-			}))
 	for _, printer := range printers {
 		if printer.Type() == "BILL" {
+			var pc feieyun.PrintContent
+			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: restaurant.Name()}})
+			FinishString(
+				&pc,
+				offset,
+				golambda.Map(bills,
+					func(_ int, b Bill) restaurantDao.Bill {
+						return b.Entity()
+					}), printer.Width())
 			p, _ := printerFactory.Connect(printer.Sn())
-			p.Print(content, "")
+			p.Print(pc.String(), "")
 		}
 	}
 	return nil
