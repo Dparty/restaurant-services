@@ -43,7 +43,7 @@ func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table
 			printContent.AddLine(
 				&feieyun.Bold{
 					Content: &feieyun.Text{
-						Content: fmt.Sprintf("- %s +%.2f", option.R, float64(order.Order.Extra(option))/100)}})
+						Content: fmt.Sprintf("- %s +%.2fX%d", option.R, float64(order.Order.Extra(option))/100, order.Number)}})
 		}
 	}
 	printContent.AddDiv(int64(p.Width()))
