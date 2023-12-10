@@ -29,3 +29,11 @@ func (d DiscountService) DeleteDiscount(id uint) {
 		d.Delete()
 	}
 }
+
+func (d DiscountService) GetDiscount(id uint) *Discount {
+	discount := d.discountRepository.Find(id)
+	if discount != nil {
+		return &Discount{entity: *discount}
+	}
+	return nil
+}
