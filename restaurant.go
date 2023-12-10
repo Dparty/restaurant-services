@@ -211,3 +211,21 @@ func (r Restaurant) ListBills(restaurantId uint,
 	}
 	return bills
 }
+
+func (r Restaurant) CreateDiscount(label string, offset int64) Discount {
+	discount := restaurant.Discount{
+		RestaurantId: r.ID(),
+		Label:        label,
+		Offset:       offset,
+	}
+	discountRepository.Save(&discount)
+	return NewDiscount(discount)
+}
+
+func (r Restaurant) Discounts() []Discount {
+	var discounts []Discount
+	for _, discount := range discountRepository.ListBy(r.ID()) {
+		discounts = append(discounts, NewDiscount(discount))
+	}
+	return discounts
+}
