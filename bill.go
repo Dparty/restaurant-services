@@ -2,6 +2,7 @@ package restaurantservice
 
 import (
 	"fmt"
+	"time"
 
 	abstract "github.com/Dparty/common/abstract"
 	"github.com/Dparty/common/data"
@@ -33,6 +34,10 @@ func (b Bill) Orders() restaurantDao.Orders {
 
 func (b Bill) PickUpCode() int64 {
 	return b.entity.PickUpCode
+}
+
+func (b Bill) CreatedAt() time.Time {
+	return b.entity.CreatedAt
 }
 
 func (b *Bill) Finish(offset int64) {
