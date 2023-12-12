@@ -2,6 +2,7 @@ package restaurantservice
 
 import (
 	"fmt"
+	"math"
 	"time"
 
 	abstract "github.com/Dparty/common/abstract"
@@ -38,6 +39,18 @@ func (b Bill) PickUpCode() int64 {
 
 func (b Bill) CreatedAt() time.Time {
 	return b.entity.CreatedAt
+}
+
+func (b Bill) Offset() int64 {
+	return b.entity.Offset
+}
+
+func (b Bill) Status() string {
+	return b.entity.Status
+}
+
+func (b Bill) Total() int64 {
+	return int64(math.Floor(float64(b.entity.Total()) * (float64(b.Offset()+100) / 100)))
 }
 
 func (b *Bill) Finish(offset int64) {
