@@ -26,12 +26,14 @@ func (d Discount) Owner() abstract.Owner {
 	return NewRestaurant(*restaurant)
 }
 
-func (d *Discount) SetLabel(label string) {
+func (d *Discount) SetLabel(label string) *Discount {
 	d.entity.Label = label
+	return d
 }
 
-func (d *Discount) SetOffset(offset int64) {
+func (d *Discount) SetOffset(offset int64) *Discount {
 	d.entity.Offset = offset
+	return d
 }
 
 func (d *Discount) Submit() {
