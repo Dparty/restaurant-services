@@ -24,7 +24,7 @@ func (p Printer) Print(printContent feieyun.PrintContent, reprint bool) {
 }
 
 func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table restaurantDao.Table, offset int64, reprint bool) {
-	timestring := time.Now().Local().Format("2006-01-02 15:04")
+	timestring := time.Now().Add(time.Hour * 8).Format("2006-01-02 15:04")
 	orderNumbers := make([]OrderNumber, 0)
 	for _, order := range bill.Orders {
 		orderNumbers = MargeOrderHelper(order, orderNumbers)
