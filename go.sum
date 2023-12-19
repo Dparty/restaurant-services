@@ -44,6 +44,8 @@ github.com/Dparty/common v0.0.0-20231204091534-90b252024099 h1:1wSxbc2lMMYntkuVs
 github.com/Dparty/common v0.0.0-20231204091534-90b252024099/go.mod h1:EWX/G93OLrM4VZ48K3ckvOMMGgTjdWa9gzCyJLS1DRw=
 github.com/Dparty/common v0.0.0-20231205012458-6ad6a1e44b5d h1:Sj2xwSfPRIYZWdnzp9F6IGt/EWJUzBEkSIDkor6/4KY=
 github.com/Dparty/common v0.0.0-20231205012458-6ad6a1e44b5d/go.mod h1:YWreOsW0pkfpIxFeqpYjXE0hmVZ5iW3SnJOvuLGuA/4=
+github.com/Dparty/common v0.0.0-20231219042126-27376c42aa13 h1:yddNHOgVUs4knc8E7+NrX9ZueLoragEAorVASzkkSb0=
+github.com/Dparty/common v0.0.0-20231219042126-27376c42aa13/go.mod h1:6QOinakjgzhphDvpPP389F8qsqvz/BajAbKfmwrP8W0=
 github.com/Dparty/dao v0.0.0-20231122091431-ace4dca53682 h1:FMdMjzhpNcuGNU/yvf7cZmkZMVT/0WuPZvUnCMZQVN8=
 github.com/Dparty/dao v0.0.0-20231122091431-ace4dca53682/go.mod h1:DFs9wMtwQMyP+9CvLA4/Hi7jdez2+fXX/1u/bVupLe0=
 github.com/Dparty/dao v0.0.0-20231122095020-73852da14d24 h1:Dna7hdfUBrwcvin51zYTvVIg1qLEzNexQDrLCA+xepk=
@@ -64,6 +66,8 @@ github.com/Dparty/dao v0.0.0-20231210102616-60baff81d1cb h1:aNIz3ydQpgd6e3rIBQ+h
 github.com/Dparty/dao v0.0.0-20231210102616-60baff81d1cb/go.mod h1:DFs9wMtwQMyP+9CvLA4/Hi7jdez2+fXX/1u/bVupLe0=
 github.com/Dparty/dao v0.0.0-20231210132515-1e31e249e5d6 h1:pKIs43W4u4wOunGUma0q/VghSoRwkVX9nd40FT4xheo=
 github.com/Dparty/dao v0.0.0-20231210132515-1e31e249e5d6/go.mod h1:DFs9wMtwQMyP+9CvLA4/Hi7jdez2+fXX/1u/bVupLe0=
+github.com/Dparty/dao v0.0.0-20231219042415-d2011d37e81b h1:oeuPB485J47Mv5oEzt0NTAImzm0izj/4seyUrG1C4oA=
+github.com/Dparty/dao v0.0.0-20231219042415-d2011d37e81b/go.mod h1:n4UMQiQgwhVuSoXZbjrw1mqDMZvK8RFAN/o3Sc1sDQQ=
 github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c h1:mOu5uuu7nL4GnxE3pmtUnUzvzG+OOC6vImisPYF1aPA=
 github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/QcloudApi/qcloud_sign_golang v0.0.0-20141224014652-e4130a326409/go.mod h1:1pk82RBxDY/JZnPQrtqHlUFfCctgdorsd9M06fMynOM=
