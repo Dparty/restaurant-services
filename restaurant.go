@@ -152,17 +152,15 @@ func (r Restaurant) CreateItem(name string, pricing int64, attributes restaurant
 	return NewItem(*item), nil
 }
 
-func (r Restaurant) CreateTable(label string, x, y int64) (Table, error) {
+func (r Restaurant) CreateTable(label string) (Table, error) {
 	if len(golambda.Filter(r.Tables(), func(_ int, table Table) bool {
-		return table.Label() == label || (x == table.X() && y == table.Y())
+		return table.Label() == label
 	})) != 0 {
 		return Table{}, fault.ErrCreateTableConflict
 	}
 	table := restaurant.Table{
 		RestaurantId: r.ID(),
 		Label:        label,
-		X:            x,
-		Y:            y,
 	}
 	tableRepository.Save(&table)
 	return Table{table}, nil
