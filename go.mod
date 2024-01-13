@@ -5,7 +5,7 @@ go 1.21.1
 require (
 	github.com/Dparty/common v0.0.0-20231219042126-27376c42aa13
 	github.com/Dparty/dao v0.0.0-20231219042415-d2011d37e81b
-	github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c
+	github.com/Dparty/feieyun v0.0.0-20231115080030-f7c885b6b906
 	github.com/chenyunda218/golambda v0.0.0-20230809035428-25245dc9a8bd
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.45
 	gorm.io/gorm v1.25.5

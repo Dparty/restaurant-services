@@ -30,25 +30,25 @@ func (p Printer) PrintBill(restaurantName string, bill restaurantDao.Bill, table
 		orderNumbers = MargeOrderHelper(order, orderNumbers)
 	}
 	var printContent feieyun.PrintContent
-	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: restaurantName}})
-	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
-	printContent.AddLine(feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
-	printContent.AddDiv(int64(p.Width()))
+	printContent.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: restaurantName}})
+	printContent.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
+	printContent.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
+	printContent.AddDiv(p.Width())
 	for _, order := range orderNumbers {
-		printContent.AddLine(
+		printContent.AddLines(
 			&feieyun.Bold{
 				Content: &feieyun.Text{
 					Content: fmt.Sprintf("%s %.2fX%d", order.Order.Item.Name, float64(order.Order.Item.Pricing)/100, order.Number)}})
 		for _, option := range order.Order.Specification {
-			printContent.AddLine(
+			printContent.AddLines(
 				&feieyun.Bold{
 					Content: &feieyun.Text{
 						Content: fmt.Sprintf("- %s +%.2fX%d", option.R, float64(order.Order.Extra(option))/100, order.Number)}})
 		}
 	}
-	printContent.AddDiv(int64(p.Width()))
-	printContent.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("合計: %.2f元", math.Floor(float64(bill.Total())/100))}})
-	printContent.AddLine(&feieyun.Text{Content: timestring})
+	printContent.AddDiv(p.Width())
+	printContent.AddLines(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("合計: %.2f元", math.Floor(float64(bill.Total())/100))}})
+	printContent.AddLines(&feieyun.Text{Content: timestring})
 	p.Print(printContent, reprint)
 }
 
@@ -150,13 +150,13 @@ func PrintBill(printers []Printer, restaurantName string, bill restaurantDao.Bil
 	}
 	for _, order := range orderNumbers {
 		var pc feieyun.PrintContent
-		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}})
-		pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}})
-		pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s X%d", order.Order.Item.Name, order.Number)}})
+		pc.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", bill.PickUpCode)}},
+			&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", table.Label)}},
+			&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("%s X%d", order.Order.Item.Name, order.Number)}})
 		for _, option := range order.Order.Specification {
-			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("-  %sX%d", option.R, order.Number)}})
+			pc.AddLines(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("-  %sX%d", option.R, order.Number)}})
 		}
-		pc.AddLine(&feieyun.Text{Content: timestring})
+		pc.AddLines(&feieyun.Text{Content: timestring})
 		for _, printer := range order.Order.Item.Printers {
 			p, err := printerService.GetById(printer)
 			if err == nil {

@@ -84,12 +84,12 @@ func (b *Bill) CancelItem(order restaurantDao.Order) {
 		if o.Equal(order) {
 			b.entity.Orders = append(b.entity.Orders[:i], b.entity.Orders[i+1:]...)
 			var pc feieyun.PrintContent
-			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: "取消品項"}})
-			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", b.PickUpCode())}})
-			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
-			pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: o.Item.Name}})
+			pc.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: "取消品項"}})
+			pc.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("餐號: %d", b.PickUpCode())}})
+			pc.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: fmt.Sprintf("桌號: %s", b.entity.TableLabel)}})
+			pc.AddLines(&feieyun.Bold{Content: &feieyun.Text{Content: o.Item.Name}})
 			for _, option := range o.Specification {
-				pc.AddLine(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("- %s", option.R)}})
+				pc.AddLines(&feieyun.Bold{Content: &feieyun.Text{Content: fmt.Sprintf("- %s", option.R)}})
 			}
 			for _, printer := range o.Item.Printers {
 				foodPrinter := printerRepository.GetById(printer)

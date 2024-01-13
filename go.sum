@@ -44,6 +44,8 @@ github.com/Dparty/dao v0.0.0-20231219042415-d2011d37e81b h1:oeuPB485J47Mv5oEzt0N
 github.com/Dparty/dao v0.0.0-20231219042415-d2011d37e81b/go.mod h1:n4UMQiQgwhVuSoXZbjrw1mqDMZvK8RFAN/o3Sc1sDQQ=
 github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c h1:mOu5uuu7nL4GnxE3pmtUnUzvzG+OOC6vImisPYF1aPA=
 github.com/Dparty/feieyun v0.0.0-20231115064000-4dba3ee5487c/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
+github.com/Dparty/feieyun v0.0.0-20231115080030-f7c885b6b906 h1:RuEnov9+yC6VEGLa2108SG3TzfS4MbWIwkhoXa4GK4Y=
+github.com/Dparty/feieyun v0.0.0-20231115080030-f7c885b6b906/go.mod h1:MRJeY/NuyVojLTIm2DymDcP4ryYPqcESMOdYUCoXSjA=
 github.com/QcloudApi/qcloud_sign_golang v0.0.0-20141224014652-e4130a326409/go.mod h1:1pk82RBxDY/JZnPQrtqHlUFfCctgdorsd9M06fMynOM=
 github.com/bsm/ginkgo/v2 v2.12.0 h1:Ny8MWAHyOepLGlLKYmXG4IEkioBysk6GpaRTLC8zwWs=
 github.com/bsm/ginkgo/v2 v2.12.0/go.mod h1:SwYbGRRDovPVboqFv0tPTcG1sN61LM1Z4ARdbAV9g4c=

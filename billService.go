@@ -145,7 +145,7 @@ func (b BillService) PrintBills(ownerId uint, billIdList []uint, offset int64) e
 	for _, printer := range printers {
 		if printer.Type() == "BILL" {
 			var pc feieyun.PrintContent
-			pc.AddLine(&feieyun.CenterBold{Content: &feieyun.Text{Content: restaurant.Name()}})
+			pc.AddLines(&feieyun.CenterBold{Content: &feieyun.Text{Content: restaurant.Name()}})
 			FinishString(
 				&pc,
 				offset,
