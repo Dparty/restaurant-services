@@ -3,6 +3,7 @@ package restaurantservice
 import (
 	"fmt"
 	"math"
+	"time"
 
 	abstract "github.com/Dparty/common/abstract"
 	restaurantDao "github.com/Dparty/dao/restaurant"
@@ -128,7 +129,7 @@ func FinishString(pc *feieyun.PrintContent, offset int64, bills []restaurantDao.
 				Content: fmt.Sprintf("合計: %2.f元", float64(bill.Total()/100))})
 		pc.AddLine(
 			&feieyun.Text{
-				Content: fmt.Sprintf("時間: %s", bill.CreatedAt.Local().Format("2006-01-02 15:04"))})
+				Content: fmt.Sprintf("時間: %s", bill.CreatedAt.Add(time.Hour*8).Format("2006-01-02 15:04"))})
 	}
 	pc.AddDiv(int64(width))
 	pc.AddLine(
