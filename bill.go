@@ -50,7 +50,8 @@ func (b Bill) Status() string {
 }
 
 func (b Bill) Total() int64 {
-	return int64(math.Floor(float64(b.entity.Total()) * (float64(b.Offset()+100) / 100)))
+	_offset := float64(b.Offset()+100) / 100
+	return int64(math.Floor((float64(b.Total()) / 100 * _offset)))
 }
 
 func (b *Bill) Finish(offset int64) {
